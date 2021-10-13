@@ -47,10 +47,147 @@ $ flutter pub get
 ```
 再將它匯入專案中
 ``` dart
-import 'package:webview_windows/webview_windows.dart' as win;
+import 'package:webview_windows/webview_windows.dart' as wweb;
 ```
 
 ### 使用
 
-![source: https://lottiefiles.com/jpdvuc5tor](https://i.imgur.com/yOKNVnq.gif)
-突然沒了動力...過兩天再寫~
+首先，我們先宣告一個Controller來控制WebView
+``` dart
+final _winController = wweb.WebviewController();
+```
+並寫一個初始WebView的function
+``` dart
+Future<void> initWindowsWebView() async {
+  if (!Platform.isWindows) return;
+  await _winController.initialize();  // 初始WebView
+  await _winController.loadUrl(
+      "https://developer.microsoft.com/en-us/microsoft-edge/webview2/"); // 載入頁面
+  while (!_winController.value.isInitialized) { // 等待初始完成
+    sleep(Duration(milliseconds: 200));
+  }
+  setState(() {}); // 重整頁面UI
+}
+```
+
+再將`initWindowsWebView()`放至`initState()`中
+``` dart
+@override
+void initState() {
+  super.initState();
+  initWindowsWebView();
+}
+```
+
+然後切記!要在離開頁面時關閉WebviewController
+``` dart
+@override
+void dispose() {
+  super.dispose();
+  _winController.dispose();
+}
+```
+
+寫完動作後，我們再來寫一個Widget來顯示WebView
+``` dart
+Widget webView() {
+  if (!Platform.isWindows)
+    return Center(
+      child: Text("not Support"),
+    );
+  if (!_winController.value.isInitialized)
+    return Center(
+      child: CircularProgressIndicator(), // 未初始完成顯示loading圖示
+    );
+  return Container(
+    child: wweb.Webview(_winController),
+  );
+}
+```
+
+最後，再將Wiget放進頁面就完成了~
+``` dart
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("WebView"),
+    ),
+    body: webView(),
+  );
+}
+```
+
+### 另人激動的成果時間
+
+![webview preview](https://i.imgur.com/ZfztlMU.gif)
+
+### Full Code
+
+> 完整程式碼請至[sample_windows_webview](https://github.com/cailirl980519/sample_windows_webview)
+
+``` dart
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:webview_windows/webview_windows.dart' as wweb;
+
+class WebViewPage extends StatefulWidget {
+  const WebViewPage({Key? key}) : super(key: key);
+
+  @override
+  _WebViewPageState createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  final _winController = wweb.WebviewController();
+
+  Future<void> initWindowsWebView() async {
+    if (!Platform.isWindows) return;
+    await _winController.initialize();  // 初始WebView
+    await _winController.loadUrl(
+        "https://developer.microsoft.com/en-us/microsoft-edge/webview2/"); // 載入頁面
+    while (!_winController.value.isInitialized) { // 等待初始完成
+      sleep(Duration(milliseconds: 200));
+    }
+    setState(() {}); // 重整頁面UI
+  }
+
+  Widget webView() {
+    if (!Platform.isWindows)
+      return Center(
+        child: Text("not Support"),
+      );
+    if (!_winController.value.isInitialized)
+      return Center(
+        child: CircularProgressIndicator(), // 未初始完成顯示loading圖示
+      );
+    return Container(
+      child: wweb.Webview(_winController),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initWindowsWebView();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _winController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample1"),
+      ),
+      body: webView(),
+    );
+  }
+}
+```
