@@ -1,5 +1,6 @@
 ---
-title: Flutter的Windows套件 - webview_windows
+title: Flutter的Windows套件 - webview_windows (1)
+description: Flutter webview_windows的基本使用
 date: 2021-10-07 14:17:28
 categories: Flutter
 tags:
@@ -7,6 +8,7 @@ tags:
 - Dart
 - Windows
 - WebView
+- Edge Webview2
 ---
 
 ### 前言

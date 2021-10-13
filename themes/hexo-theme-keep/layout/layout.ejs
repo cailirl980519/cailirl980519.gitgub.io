@@ -4,5 +4,8 @@
 <body>
 <%- body %>
 <%- partial('_partial/scripts') %>
+<% if (is_home() && !page.prev) { %>
+    <script color="129, 201, 149" pointColor="241, 243, 244" count="99" src="https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/2.0.4/canvas-nest.js"></script>
+<% } %>
 </body>
 </html>
