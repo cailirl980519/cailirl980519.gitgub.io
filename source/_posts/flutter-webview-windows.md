@@ -7,11 +7,8 @@ tags:
 - Flutter
 - Dart
 - Windows
-- WebView
 - Edge Webview2
 ---
-
-### 前言
 
 WebView在Flutter的iOS及Android端支援已非常完善，但在Windows及Mac端卻始終沒有支援，在2019年，就有網友在Github提出何時會支援電腦桌面端的WebView套件，但始終沒有消息...
 

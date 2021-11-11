@@ -40,7 +40,7 @@ style:
   first_screen:
     enable: true
     background_img: /images/bg.svg   # You can use local image or image external link
-    description: Keep coding and Keep loving.
+    description: The best error message is the one that never shows up.
 
   # Scroll style settings
   scroll:
@@ -48,9 +48,6 @@ style:
       enable: false
     percent:
       enable: true
-
-sitemap:
-    path: sitemap.xml
 
 # ---------------------------------------------------------------------------------------
 # Social contact link

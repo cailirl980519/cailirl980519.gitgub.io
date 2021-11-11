@@ -6,11 +6,8 @@ tags:
 - Flutter
 - Dart
 - Windows
-- WebView
 - Edge Webview2
 ---
-
-### 前言
 
 前幾天介紹了webview_windows的[基本使用](https://cailirl980519.github.io/2021/10/07/flutter-webview-windows/)，我們已經學會了如何在Flutter App裡開啟網頁，但通常如果是開啟自己的網頁的話，可能有些Web功能就需要跟Flutter端溝通。
 今天要來學習如何運用[webview_windows](https://pub.dev/packages/webview_windows)來接收網頁的訊息及從Flutter傳訊息至Web端。
