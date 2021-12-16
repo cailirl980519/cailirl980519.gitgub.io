@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Flutter, Dart, MSIX, webview_windows, Javascript, Web">
+    <meta name="description" content="記錄雜七雜八的秘密基地">
+    <meta name="author" content="Shirley">
+    
+    <title>
+        
+            透過Pointer events偵測多點觸控 |
+        
+        Shirley的隨手筆記
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cailirl980519.github.io","root":"/","language":"zh-TW"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF9933","avatar":"/images/logo.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"The best error message is the one that never shows up."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分鍾前","hour":"%s 小時前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Shirley的隨手筆記
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首頁
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                歸檔
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分類
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首頁</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">歸檔</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分類</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">透過Pointer events偵測多點觸控</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Shirley</span>
+                        
+                            <span class="author-label">Flutter實習生</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-10-22 14:17:53
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Javascript/">Javascript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Javascript/">Javascript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Pointer-events/">Pointer events</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>在多平台的時代，瀏覽器的輸入事件也越來越多樣化，從早期只有滑鼠可以點擊畫面，到現在有了觸控、觸控筆，於是Pointer events誕生了，它不僅保留了Mouse events的常見屬性，還多了可以追蹤各種類型指針事件的功能，使程式碼可以相容各種不同類型的裝置。</p>
+<p>Pointer events不像Touch events一樣，Pointer events並沒有TouchesList，沒辦法輕易得知目前有幾的觸碰點在畫面上，所以如果要進行縮放這種需要兩隻手指的動作，就需要多寫點程式碼來判斷了，今天就來記錄一下如何用一個事件只能記錄一個觸碰點的Pointer events來偵測多點觸控～</p>
+<h3 id="先來個成果時間"><a href="#先來個成果時間" class="headerlink" title="先來個成果時間"></a>先來個成果時間</h3><p class="codepen" data-height="300" data-default-tab="result" data-slug-hash="VwzmQXJ" data-preview="true" data-editable="true" data-user="cailirl980519" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a class="link"   target="_blank" rel="noopener" href="https://codepen.io/cailirl980519/pen/VwzmQXJ" >
+  pointer-events<i class="fas fa-external-link-alt"></i></a> by cailirl980519 (<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/cailirl980519" >@cailirl980519<i class="fas fa-external-link-alt"></i></a>)
+  on <a class="link"   target="_blank" rel="noopener" href="https://codepen.io" >CodePen<i class="fas fa-external-link-alt"></i></a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>一開始，我們先將需要偵測的物件加入事件偵測</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> t = <span class="built_in">document</span>.getElementById(<span class="string">&quot;target&quot;</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointerdown&#x27;</span>	, zoomHandler, <span class="literal">false</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointermove&#x27;</span>	, zoomHandler, <span class="literal">false</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointerup&#x27;</span>		, zoomHandler, <span class="literal">false</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointercancel&#x27;</span>	, zoomHandler, <span class="literal">false</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointerout&#x27;</span>		, zoomHandler, <span class="literal">false</span>)</span><br><span class="line">t.addEventListener(<span class="string">&#x27;pointerleave&#x27;</span>	, zoomHandler, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下來將每個事件要做的動作加入<code>zoomHandler</code>：</p>
+<ul>
+<li>pointerdown: 將觸碰點加入<code>evCache</code></li>
+<li>pointermove: 找到移動的點並更新至<code>evCache</code></li>
+<li>pointerup, pointercancel, pointerout, pointerleave: 將離開的點從<code>evChache</code>中刪除</li>
+</ul>
+<p>最後判斷畫面上觸碰點的數量，隨著數量的不同，變更目標背景的顏色，用Pointer events偵測多點觸控就這樣完成了～</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> evCache = <span class="keyword">new</span> <span class="built_in">Array</span>() <span class="comment">// 紀錄正觸碰的點</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">zoomHandler</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">    <span class="keyword">if</span> (e.type == <span class="string">&quot;pointerdown&quot;</span>) &#123; <span class="comment">// 將觸碰點加入`evCache`</span></span><br><span class="line">        evCache.push(e)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.type == <span class="string">&quot;pointermove&quot;</span>) &#123; <span class="comment">// 找到移動的點並更新至`evCache`</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; evCache.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.pointerId == evCache[i].pointerId) &#123;</span><br><span class="line">                evCache[i] = e</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; evCache.length; i++) &#123; <span class="comment">// 將離開的點從`evChache`中刪除</span></span><br><span class="line">            <span class="keyword">if</span> (evCache[i].pointerId == e.pointerId) &#123;</span><br><span class="line">                evCache.splice(i, <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (evCache.length) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            $(t).css(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;transparent&quot;</span>)</span><br><span class="line">            $(<span class="string">&quot;#text&quot;</span>).html(<span class="string">&quot;Touch Here&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            $(t).css(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;lightgray&quot;</span>)</span><br><span class="line">            $(<span class="string">&quot;#text&quot;</span>).html(<span class="string">&quot;1 Touches&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            $(t).css(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;lightblue&quot;</span>)</span><br><span class="line">            $(<span class="string">&quot;#text&quot;</span>).html(<span class="string">&quot;2 Touches&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            $(t).css(<span class="string">&quot;background-color&quot;</span>, <span class="string">&quot;pink&quot;</span>)</span><br><span class="line">            $(<span class="string">&quot;#text&quot;</span>).html(<span class="string">&quot;3 Touches&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/10/26/js-shape-recognition/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">識別HTML5 Canvas上的圖形（直線、箭號、圓形、矩形...）</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/13/flutter-webview-windows-2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Flutter的Windows套件 - webview_windows (2)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Shirley</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        總訪問量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驅動&nbsp;|&nbsp;主題&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E4%BE%86%E5%80%8B%E6%88%90%E6%9E%9C%E6%99%82%E9%96%93"><span class="nav-number">1.</span> <span class="nav-text">先來個成果時間</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+
+</body>
+</html>

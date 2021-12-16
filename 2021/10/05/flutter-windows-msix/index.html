@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Flutter, Dart, MSIX, webview_windows, Javascript, Web">
+    <meta name="description" content="記錄雜七雜八的秘密基地">
+    <meta name="author" content="Shirley">
+    
+    <title>
+        
+            那些封裝Flutter for Windows Desktop踩過的坑 |
+        
+        Shirley的隨手筆記
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cailirl980519.github.io","root":"/","language":"zh-TW"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF9933","avatar":"/images/logo.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"The best error message is the one that never shows up."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分鍾前","hour":"%s 小時前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Shirley的隨手筆記
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首頁
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                歸檔
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分類
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首頁</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">歸檔</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分類</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">那些封裝Flutter for Windows Desktop踩過的坑</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Shirley</span>
+                        
+                            <span class="author-label">Flutter實習生</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-10-05 17:58:52
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Flutter/">Flutter</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Flutter/">Flutter</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Dart/">Dart</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Windows/">Windows</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/MSIX/">MSIX</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>當我用Flutter寫完一個App後，想要將這個App封裝成Window的MSIX應用程式，但發現網上Windows Desktop的教學屈指可數，且多數都是英文，於是就產生了想法把它記錄下來，把坑填好，以免以後要用到忘記踩過的坑！</p>
+<h3 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h3><ul>
+<li>一個欲封裝的Flutter專案</li>
+<li>一台安裝好Flutter環境的Windows電腦</li>
+<li>一顆強壯的心</li>
+</ul>
+<h3 id="新增MSIX套件"><a href="#新增MSIX套件" class="headerlink" title="新增MSIX套件"></a>新增MSIX套件</h3><p>本篇是運用Flutter Package中的<a class="link"   target="_blank" rel="noopener" href="https://pub.dev/packages/msix" >msix<i class="fas fa-external-link-alt"></i></a>套件來封裝Windows應用程式，所以首先～我們就先將msix套件新增至我們Flutter專案中的<code>pubspec.yaml</code>中。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dev_dependencies:</span></span><br><span class="line">  <span class="attr">flutter_test:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line">  <span class="attr">msix:</span> <span class="string">^2.2.3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="建置Windwos-Release版本應用"><a href="#建置Windwos-Release版本應用" class="headerlink" title="建置Windwos Release版本應用"></a>建置Windwos Release版本應用</h3><p>若Flutter專案中還沒有windows資料夾，則先輸入：</p>
+<p><code>flutter config --enable-windows-desktop</code></p>
+<p>接下來先來建置個windows的應用(.exe)，只需在終端機的Flutter專案的目錄下輸入：</p>
+<p><code>flutter build windows</code></p>
+<p>這時，建置好的Windows應用將會輸出至Flutter專案中<strong>\build\windows\runner\Release</strong>資料夾下。</p>
+<blockquote>
+<p>若應用程式要上架至Windows Store，就不需要再額外進行數位簽署，上架Windows Store時會自動簽署。<br>若要將MSIX進行私有部署或測試，則須創建一個.pfx證書來將應用進行數位簽署。</p>
+</blockquote>
+<p><em>如不需數位簽署則直接跳至下面MSIX打包</em></p>
+<h3 id="創建自簽名的-pfx證書"><a href="#創建自簽名的-pfx證書" class="headerlink" title="創建自簽名的.pfx證書"></a>創建自簽名的.pfx證書</h3><ol>
+<li><p>安裝<a class="link"   target="_blank" rel="noopener" href="https://slproweb.com/products/Win32OpenSSL.html" >OpenSSL<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p>將OpenSSL新增至環境變數<br> e.g. <code>&quot;C:\Program Files\OpenSSL-Win64\bin&quot;</code></p>
+</li>
+<li><p>產生私鑰<br> <code>openssl genrsa -out mykeyname.key 2048</code></p>
+</li>
+<li><p>使用私鑰產生自簽名證書(CSR)<br> <code>openssl req -new -key mykeyname.key –subj “/CN=Comapny Name/O=Comapny Name/C=TW” -out mycsrname.csr</code></p>
+<blockquote>
+<ul>
+<li>/CN: Company Name</li>
+<li>/O:  Organization Name</li>
+<li>/C:  Country Name</li>
+</ul>
+</blockquote>
+</li>
+<li><p>使用私鑰及CSR文件生成自簽名證書(CRT)<br> <code>openssl x509 -in mycsrname.csr -out mycrtname.crt -req -signkey mykeyname.key -days 10000</code></p>
+</li>
+<li><p>使用私鑰與CRT文件生成.pfx文件<br> <code>openssl pkcs12 -export -out CERTIFICATE.pfx -inkey mykeyname.key -in mycrtname.crt</code></p>
+</li>
+</ol>
+<h3 id="將應用程式進行數位簽署"><a href="#將應用程式進行數位簽署" class="headerlink" title="將應用程式進行數位簽署"></a>將應用程式進行數位簽署</h3><ol>
+<li><p>將signtool新增至環境變數<br> e.g. <code>C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64</code></p>
+</li>
+<li><p>將.pfx證書簽署至exe<br> <code>signtool sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /f CERTIFICATE.pfx /p 16595169 myapp.exe</code></p>
+<blockquote>
+<ul>
+<li>/tr: 時間戳記</li>
+<li>/td: 時間戳記摘要演算法</li>
+<li>/fd: 檔案摘要演算法</li>
+<li>/f:  簽署憑證</li>
+<li>/p:  憑證密碼</li>
+</ul>
+</blockquote>
+</li>
+<li><p>右鍵點擊.exe檔選取<strong>內容</strong>，確認<strong>數位簽章</strong>內有.pfx證書</p>
+<img src="/images/msix/image7.png" alt="signtool_verify" title="height='500'" height="500" /></li>
+</ol>
+<h3 id="將-pfx資訊新增至Flutter專案"><a href="#將-pfx資訊新增至Flutter專案" class="headerlink" title="將.pfx資訊新增至Flutter專案"></a>將.pfx資訊新增至Flutter專案</h3><ul>
+<li><p>確認.pfx資訊</p>
+<ol>
+<li>於Windows PowerShell輸入<br> <code>Get-PfxCertificate</code></li>
+<li>於FilePath[0]輸入.pfx路徑</li>
+<li>跳出FilePath[1]留空Enter</li>
+<li>輸入.pfx密碼</li>
+<li>將輸出Subject記錄下來<br><img src="/images/msix/image8.png" alt="pfx_info"></li>
+</ol>
+</li>
+<li><p>將<code>msix_config</code>新增至<code>pubspec.yaml</code>的最底部</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">msix_config:</span></span><br><span class="line">  <span class="attr">display_name:</span> <span class="string">myApp</span></span><br><span class="line">  <span class="attr">publisher_display_name:</span> <span class="string">CompanyName</span></span><br><span class="line">  <span class="attr">identity_name:</span> <span class="string">MyCompany.MySuite.MyApp</span></span><br><span class="line">  <span class="attr">msix_version:</span> <span class="number">1.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">  <span class="attr">certificate_path:</span> <span class="string">C:\&lt;PathToCertificate&gt;\&lt;CERTIFICATE.pfx&gt;</span></span><br><span class="line">  <span class="attr">certificate_password:</span> <span class="number">1234</span></span><br><span class="line">  <span class="attr">publisher:</span> <span class="string">CN=Comapny</span> <span class="string">Name,</span> <span class="string">O=Comapny</span> <span class="string">Name,</span> <span class="string">C=TW</span></span><br><span class="line">  <span class="attr">logo_path:</span> <span class="string">C:\&lt;PathToIcon&gt;\&lt;Logo.png&gt;</span></span><br><span class="line">  <span class="attr">start_menu_icon_path:</span> <span class="string">C:\&lt;PathToIcon&gt;\&lt;Icon.png&gt;</span></span><br><span class="line">  <span class="attr">tile_icon_path:</span> <span class="string">C:\&lt;PathToIcon&gt;\&lt;Icon.png&gt;</span></span><br><span class="line">  <span class="attr">vs_generated_images_folder_path:</span> <span class="string">C:\&lt;PathToFolder&gt;\icons</span></span><br><span class="line">  <span class="attr">icons_background_color:</span> <span class="string">transparent</span></span><br><span class="line">  <span class="attr">architecture:</span> <span class="string">x64</span></span><br><span class="line">  <span class="attr">capabilities:</span> <span class="string">&#x27;internetClient,location,microphone,webcam&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>將剛剛紀錄的Subject直接貼上<code>publisher</code></p>
+<blockquote>
+<p>大坑-1: 若排序錯了則會封裝失敗！！！</p>
+</blockquote>
+<h3 id="MSIX打包"><a href="#MSIX打包" class="headerlink" title="MSIX打包"></a>MSIX打包</h3><p>在終端機的Flutter專案的目錄下輸入：<br><code>flutter pub run msix:create</code></p>
+<p><img src="/images/msix/image0.png" alt="msix:create"></p>
+<p>Flutter專案中<strong>\build\windows\runner\Release</strong>資料夾下，會多產生一個msix檔。</p>
+<h4 id="安裝未受信任應用程式"><a href="#安裝未受信任應用程式" class="headerlink" title="安裝未受信任應用程式"></a>安裝未受信任應用程式</h4><p>在msix封裝時，msix套件會自動簽署預設的測試簽章，但此時開啟.msix檔案還是會跳出此應用程式是未受信任的應用程式而無法安裝，如下圖：</p>
+<p><img src="https://docs.microsoft.com/zh-tw/windows/msix/images/msix-bad-cert.png" alt="取自https://docs.microsoft.com/"></p>
+<p>此時，需要右鍵點擊.msix檔案再選取內容，將會看到<strong>數位簽章</strong>的標籤，點擊簽章再選取詳細資料。</p>
+<img src="/images/msix/image1.png" alt="UntrustedApp_Step1" title="width='350'" width="350" />
+
+<p>點擊<strong>檢視憑證</strong><br><img src="/images/msix/image2.png" alt="UntrustedApp_Step2" title="width='350'" width="350" /></p>
+<p>點擊<strong>安裝憑證</strong><br><img src="/images/msix/image3.png" alt="UntrustedApp_Step3" title="width='350'" width="350" /></p>
+<p>選擇<strong>本機電腦</strong><br><img src="/images/msix/image4.png" alt="UntrustedApp_Step4" title="width='350'" width="350" /></p>
+<p>選擇存放在<strong>受信任的根憑證目錄</strong><br><img src="/images/msix/image5.png" alt="UntrustedApp_Step5" title="width='350'" width="350" /></p>
+<p>點擊<strong>完成</strong><br><img src="/images/msix/image6.png" alt="UntrustedApp_Step6" title="width='350'" width="350" /></p>
+<p>接著全部點確定，再開啟.msix檔案，就變為受信任的應用程式且可以安裝了～<br><img src="https://docs.microsoft.com/zh-tw/windows/msix/images/msix-good-cert.png" alt="取自https://docs.microsoft.com/"></p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/10/07/flutter-webview-windows/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Flutter的Windows套件 - webview_windows (1)</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/05/hello-world/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hello Hexo World</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Shirley</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        總訪問量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驅動&nbsp;|&nbsp;主題&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="nav-number">1.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9EMSIX%E5%A5%97%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">新增MSIX套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%BD%AEWindwos-Release%E7%89%88%E6%9C%AC%E6%87%89%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">建置Windwos Release版本應用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%B5%E5%BB%BA%E8%87%AA%E7%B0%BD%E5%90%8D%E7%9A%84-pfx%E8%AD%89%E6%9B%B8"><span class="nav-number">4.</span> <span class="nav-text">創建自簽名的.pfx證書</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E9%80%B2%E8%A1%8C%E6%95%B8%E4%BD%8D%E7%B0%BD%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text">將應用程式進行數位簽署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-pfx%E8%B3%87%E8%A8%8A%E6%96%B0%E5%A2%9E%E8%87%B3Flutter%E5%B0%88%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">將.pfx資訊新增至Flutter專案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSIX%E6%89%93%E5%8C%85"><span class="nav-number">7.</span> <span class="nav-text">MSIX打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E6%9C%AA%E5%8F%97%E4%BF%A1%E4%BB%BB%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">7.1.</span> <span class="nav-text">安裝未受信任應用程式</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+
+</body>
+</html>

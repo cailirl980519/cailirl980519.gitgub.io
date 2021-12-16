@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Flutter, Dart, MSIX, webview_windows, Javascript, Web">
+    <meta name="description" content="記錄雜七雜八的秘密基地">
+    <meta name="author" content="Shirley">
+    
+    <title>
+        
+            識別HTML5 Canvas上的圖形（直線、箭號、圓形、矩形...） |
+        
+        Shirley的隨手筆記
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cailirl980519.github.io","root":"/","language":"zh-TW"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF9933","avatar":"/images/logo.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"The best error message is the one that never shows up."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分鍾前","hour":"%s 小時前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Shirley的隨手筆記
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首頁
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                歸檔
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分類
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首頁</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">歸檔</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分類</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">識別HTML5 Canvas上的圖形（直線、箭號、圓形、矩形...）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/logo.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Shirley</span>
+                        
+                            <span class="author-label">Flutter實習生</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-10-26 10:52:47
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Javascript/">Javascript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Javascript/">Javascript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HTML5-Canvas/">HTML5 Canvas</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Shape-recognition/">Shape recognition</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>在iOS的備忘錄或Samsung Note App裡畫畫都可以將手畫的筆跡轉換成漂亮的圖形，讓我不禁想嘗試HTML5的Canvas是不是也可以做到，今天就來記錄一下如何將HTML5 Canvas上醜醜的圖形變成漂亮的直線、箭號、矩形等等。</p>
+<h3 id="開心地展示時間"><a href="#開心地展示時間" class="headerlink" title="開心地展示時間"></a>開心地展示時間</h3><p class="codepen" data-height="300" data-slug-hash="zYdNBxM" data-preview="true" data-editable="true" data-user="cailirl980519" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a class="link"   target="_blank" rel="noopener" href="https://codepen.io/cailirl980519/pen/zYdNBxM" >
+  Shape Recognition<i class="fas fa-external-link-alt"></i></a> by cailirl980519 (<a class="link"   target="_blank" rel="noopener" href="https://codepen.io/cailirl980519" >@cailirl980519<i class="fas fa-external-link-alt"></i></a>)
+  on <a class="link"   target="_blank" rel="noopener" href="https://codepen.io" >CodePen<i class="fas fa-external-link-alt"></i></a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><p>首先，先在頁面創建一個<code>&lt;canvas&gt;</code>用來畫畫，再創建一個<code>&lt;button&gt;</code>來清除畫布</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;canvas&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;menu&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;clear&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;reset()&quot;</span>&gt;</span>clear<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><p>再來用CSS排個版～</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#canvas</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#menu</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h4><p>先宣告幾個等等需要用到的參數，並將偵測動作加入畫布</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isMobile = <span class="built_in">window</span>.orientation !== <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">const</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line"><span class="comment">// 設定畫布大小</span></span><br><span class="line">canvas.width = canvas.clientWidth;</span><br><span class="line">canvas.height = canvas.clientHeight;</span><br><span class="line"><span class="keyword">const</span> ctx = canvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line"><span class="comment">// 設定畫布樣式</span></span><br><span class="line">ctx.fillStyle = <span class="string">&quot;lightgray&quot;</span>;</span><br><span class="line">ctx.lineWidth = <span class="number">2</span>;</span><br><span class="line">ctx.font = <span class="string">&quot;30px Arial&quot;</span>;</span><br><span class="line"><span class="comment">// 記錄筆跡的參數</span></span><br><span class="line"><span class="keyword">var</span> drawCache = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="keyword">var</span> lineCache = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="comment">// 偵測畫布動作</span></span><br><span class="line"><span class="keyword">if</span> (isMobile) &#123;</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;touchstart&quot;</span>, handleDraw);</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;touchmove&quot;</span>, handleDraw);</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;touchend&quot;</span>, handleDraw);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;pointerdown&quot;</span>, handleDraw);</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;pointermove&quot;</span>, handleDraw);</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;pointerup&quot;</span>, handleDraw);</span><br><span class="line">  canvas.addEventListener(<span class="string">&quot;pointercancel&quot;</span>, handleDraw);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下來宣告一個<code>handleDraw</code> function來執行偵測到畫布動作後需要做的事情：</p>
+<ul>
+<li>偵測到這些動作時，將目前觸碰到的點加入<code>lineCache</code>陣列裡<ul>
+<li>pointerdown</li>
+<li>pointermove</li>
+<li>touchstart</li>
+<li>touchmove</li>
+</ul>
+</li>
+<li>偵測到這些動作時，利用<code>detectShape</code>判斷圖形，再將偵測到的圖形及目前的線段<code>lineCache</code>新增至<code>drawCache</code><ul>
+<li>pointerup</li>
+<li>pointercancel</li>
+<li>touchend</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleDraw</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (isMobile &amp;&amp; (e.type == <span class="string">&quot;touchstart&quot;</span> || e.type == <span class="string">&quot;touchmove&quot;</span>)) ||</span><br><span class="line">    (e.buttons == <span class="number">1</span> &amp;&amp; (e.type == <span class="string">&quot;pointerdown&quot;</span> || e.type == <span class="string">&quot;pointermove&quot;</span>))</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="comment">// 將目前觸碰到的點加入`lineCache`陣列裡</span></span><br><span class="line">    lineCache.push(&#123;</span><br><span class="line">      <span class="attr">x</span>: isMobile ? e.touches[<span class="number">0</span>].clientX : e.clientX,</span><br><span class="line">      <span class="attr">y</span>: isMobile ? e.touches[<span class="number">0</span>].clientY : e.clientY</span><br><span class="line">    &#125;);</span><br><span class="line">    draw(); <span class="comment">// 更新畫布</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (</span><br><span class="line">    e.type == <span class="string">&quot;pointerup&quot;</span> ||</span><br><span class="line">    e.type == <span class="string">&quot;pointercancel&quot;</span> ||</span><br><span class="line">    e.type == <span class="string">&quot;touchend&quot;</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (lineCache.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      detectShape(lineCache); <span class="comment">// 偵測圖形</span></span><br><span class="line">    &#125;</span><br><span class="line">    lineCache = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    draw(); <span class="comment">// 更新畫布</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接著就是今天的重點<code>detectShape</code></p>
+<ol>
+<li>先將三個連續點變為兩個線段，並判斷兩個線段的角度，如果大於<code>Math.PI / 4</code>則認定它為角</li>
+<li>計算所有認定為角的平均角度</li>
+<li>判斷第一個點跟最後一個點的距離是否小於30，如是，則認定為封閉的圖形，並將<strong>第一個點</strong>加入<code>corners</code>的最後一項</li>
+<li>若為封閉的圖形，則利用<code>avgA</code>判斷是否為<strong>圓形</strong>或<strong>橢圓形</strong></li>
+<li>若為封閉的圖形，且不是圓形或橢圓形，並有5個角，則可以認定它為<strong>四方形</strong>，接著就繼續判斷是否為<strong>矩形</strong></li>
+<li>若不為封閉的圖形，則將<strong>最後一個</strong>點加入<code>corners</code>的最後一項</li>
+<li>若不為封閉的圖形，則判斷是否為曲線、直線或箭號</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">detectShape</span>(<span class="params">points</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ptLast = &#123; ...points[points.length - <span class="number">1</span>] &#125;;</span><br><span class="line">  ptLast.index = points.length - <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// 線段轉彎的地方（角）</span></span><br><span class="line">  <span class="keyword">let</span> corners = [points[<span class="number">0</span>]];</span><br><span class="line">  <span class="keyword">let</span> n = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> t = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> lastCorner = points[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> angles = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> avgA;</span><br><span class="line">  <span class="comment">// 1. 判斷是否為角</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; points.length - <span class="number">2</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> pt = points[i + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">let</span> d = delta(lastCorner, points[i - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (len(d) &gt; <span class="number">20</span> &amp;&amp; n &gt; <span class="number">2</span>) &#123;</span><br><span class="line">      ac = delta(points[i - <span class="number">1</span>], pt);</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(angle_between(ac, d)) &gt; <span class="built_in">Math</span>.PI / <span class="number">4</span>) &#123;</span><br><span class="line">        angles += (angle_between(ac, d) * <span class="number">180</span>) / <span class="built_in">Math</span>.PI;</span><br><span class="line">        pt.index = i;</span><br><span class="line">        corners.push(pt);</span><br><span class="line">        lastCorner = pt;</span><br><span class="line">        n = <span class="number">0</span>;</span><br><span class="line">        t = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    n++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 2. 計算所有角的平均角度</span></span><br><span class="line">  avgA = angles / corners.length;</span><br><span class="line">  <span class="comment">// 3. 判斷是否為封閉的圖形</span></span><br><span class="line">  <span class="keyword">if</span> (len(delta(points[points.length - <span class="number">1</span>], points[<span class="number">0</span>])) &lt; <span class="number">30</span>) &#123;</span><br><span class="line">    <span class="comment">// 3. 將第一個點加入corners最後一項</span></span><br><span class="line">    ptLast = &#123; ...points[<span class="number">0</span>] &#125;;</span><br><span class="line">    ptLast.index = <span class="number">0</span>;</span><br><span class="line">    corners.push(ptLast);</span><br><span class="line">    <span class="comment">// 4. 判斷是否為圓形或橢圓形</span></span><br><span class="line">    <span class="keyword">if</span> (avgA &lt; <span class="number">45</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> l = points.length;</span><br><span class="line">      <span class="keyword">let</span> ps = [...points];</span><br><span class="line">      <span class="keyword">let</span> left = ps.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.x - b.x)[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">let</span> right = ps.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.x - a.x)[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">let</span> top = ps.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.y - b.y)[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">let</span> bottom = ps.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.y - a.y)[<span class="number">0</span>];</span><br><span class="line">      corners = [left, right, top, bottom];</span><br><span class="line">      drawCache.push(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;circle&quot;</span>,</span><br><span class="line">        <span class="attr">corners</span>: corners,</span><br><span class="line">        <span class="attr">line</span>: [...lineCache]</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 5. 判斷是否為四方形</span></span><br><span class="line">    <span class="keyword">if</span> (corners.length == <span class="number">5</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> p0 = corners[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">let</span> p1 = corners[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">let</span> p2 = corners[<span class="number">2</span>];</span><br><span class="line">      <span class="keyword">let</span> p3 = corners[<span class="number">3</span>];</span><br><span class="line">      <span class="keyword">let</span> p0p1 = delta(p0, p1);</span><br><span class="line">      <span class="keyword">let</span> p1p2 = delta(p1, p2);</span><br><span class="line">      <span class="keyword">let</span> p2p3 = delta(p2, p3);</span><br><span class="line">      <span class="keyword">let</span> p3p0 = delta(p3, p0);</span><br><span class="line">      <span class="comment">// 5. 判斷是否為矩形</span></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        <span class="built_in">Math</span>.abs(angle_between(p0p1, p1p2) - <span class="built_in">Math</span>.PI / <span class="number">2</span>) &lt; <span class="built_in">Math</span>.PI / <span class="number">6</span> &amp;&amp;</span><br><span class="line">        <span class="built_in">Math</span>.abs(angle_between(p1p2, p2p3) - <span class="built_in">Math</span>.PI / <span class="number">2</span>) &lt; <span class="built_in">Math</span>.PI / <span class="number">6</span> &amp;&amp;</span><br><span class="line">        <span class="built_in">Math</span>.abs(angle_between(p2p3, p3p0) - <span class="built_in">Math</span>.PI / <span class="number">2</span>) &lt; <span class="built_in">Math</span>.PI / <span class="number">6</span> &amp;&amp;</span><br><span class="line">        <span class="built_in">Math</span>.abs(angle_between(p3p0, p0p1) - <span class="built_in">Math</span>.PI / <span class="number">2</span>) &lt; <span class="built_in">Math</span>.PI / <span class="number">6</span></span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="keyword">let</span> p0p2 = delta(p0, p2);</span><br><span class="line">        <span class="keyword">let</span> p1p3 = delta(p1, p3);</span><br><span class="line">        <span class="keyword">let</span> diag = (len(p0p2) + len(p1p3)) / <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">let</span> tocenter0 = scale(unit(p0p2), -diag);</span><br><span class="line">        <span class="keyword">let</span> tocenter1 = scale(unit(p1p3), -diag);</span><br><span class="line">        <span class="keyword">let</span> center = average(corners);</span><br><span class="line">        <span class="keyword">let</span> angle = angle_between(p0p2, p1p3);</span><br><span class="line">        corners = [</span><br><span class="line">          add(center, tocenter0),</span><br><span class="line">          add(center, tocenter1),</span><br><span class="line">          add(center, scale(tocenter0, -<span class="number">1</span>)),</span><br><span class="line">          add(center, scale(tocenter1, -<span class="number">1</span>)),</span><br><span class="line">          add(center, tocenter0)</span><br><span class="line">        ];</span><br><span class="line">        drawCache.push(&#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&quot;rect&quot;</span>,</span><br><span class="line">          <span class="attr">corners</span>: corners,</span><br><span class="line">          <span class="attr">line</span>: [...lineCache]</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; <span class="comment">// 不是封閉的圖形</span></span><br><span class="line">    <span class="comment">// 6. 將最後一個點加入corners最後一項</span></span><br><span class="line">    corners.push(ptLast);</span><br><span class="line">    <span class="comment">// 7. 判斷是否為曲線</span></span><br><span class="line">    <span class="keyword">if</span> (avgA &gt; <span class="number">20</span> &amp;&amp; avgA &lt; <span class="number">40</span>) &#123;</span><br><span class="line">      drawCache.push(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;arc&quot;</span>,</span><br><span class="line">        <span class="attr">corners</span>: corners,</span><br><span class="line">        <span class="attr">line</span>: [...lineCache]</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 7. 判斷是否為直線</span></span><br><span class="line">    <span class="keyword">if</span> (corners.length == <span class="number">2</span>) &#123;</span><br><span class="line">      drawCache.push(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;line&quot;</span>,</span><br><span class="line">        <span class="attr">corners</span>: corners,</span><br><span class="line">        <span class="attr">line</span>: [...lineCache]</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (corners.length == <span class="number">3</span>) &#123; </span><br><span class="line">      <span class="comment">// 7. 判斷是否為鍵號</span></span><br><span class="line">      <span class="keyword">let</span> p0 = corners[<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">let</span> p1 = corners[<span class="number">1</span>];</span><br><span class="line">      <span class="keyword">let</span> p2 = ptLast;</span><br><span class="line">      <span class="keyword">let</span> p0p1 = delta(p0, p1);</span><br><span class="line">      <span class="keyword">let</span> p1p2 = delta(p1, p2);</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(angle_between(p0p1, p1p2) - <span class="built_in">Math</span>.PI / <span class="number">4</span>) &gt; <span class="built_in">Math</span>.PI / <span class="number">6</span>) &#123;</span><br><span class="line">        drawCache.push(&#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&quot;arrow&quot;</span>,</span><br><span class="line">          <span class="attr">corners</span>: corners,</span><br><span class="line">          <span class="attr">line</span>: [...lineCache]</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  drawCache.push(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;other&quot;</span>,</span><br><span class="line">    <span class="attr">corners</span>: corners,</span><br><span class="line">    <span class="attr">line</span>: [...lineCache]</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>經過複雜且麻煩的偵測圖形後，最後就只要將偵測到的圖案更新至畫布內就大功告成了！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 清除畫布</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clear</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  clear();</span><br><span class="line">  ctx.strokeStyle = <span class="string">&quot;orange&quot;</span>;</span><br><span class="line">  <span class="comment">// 繪製完成的筆跡</span></span><br><span class="line">  drawCache.forEach(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    <span class="keyword">if</span> (e.type == <span class="string">&quot;line&quot;</span>) &#123; <span class="comment">// 直線</span></span><br><span class="line">      <span class="keyword">let</span> l = e.line.length - <span class="number">1</span>;</span><br><span class="line">      ctx.moveTo(e.line[<span class="number">0</span>].x, e.line[<span class="number">0</span>].y);</span><br><span class="line">      ctx.lineTo(e.line[l].x, e.line[l].y);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.type == <span class="string">&quot;arrow&quot;</span>) &#123; <span class="comment">// 箭號</span></span><br><span class="line">      <span class="keyword">let</span> l = e.line.length - <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">let</span> angle =</span><br><span class="line">        (<span class="built_in">Math</span>.atan2(e.line[l].y - e.line[<span class="number">0</span>].y, e.line[l].x - e.line[<span class="number">0</span>].x) *</span><br><span class="line">          <span class="number">180</span>) /</span><br><span class="line">        <span class="built_in">Math</span>.PI;</span><br><span class="line">      <span class="keyword">let</span> angle1 = ((angle + <span class="number">150</span>) * <span class="built_in">Math</span>.PI) / <span class="number">180</span>;</span><br><span class="line">      <span class="keyword">let</span> angle2 = ((angle - <span class="number">150</span>) * <span class="built_in">Math</span>.PI) / <span class="number">180</span>;</span><br><span class="line">      ctx.moveTo(e.line[<span class="number">0</span>].x, e.line[<span class="number">0</span>].y);</span><br><span class="line">      ctx.lineTo(e.line[l].x, e.line[l].y);</span><br><span class="line">      ctx.lineTo(</span><br><span class="line">        e.line[l].x + <span class="number">20</span> * <span class="built_in">Math</span>.cos(angle1),</span><br><span class="line">        e.line[l].y + <span class="number">20</span> * <span class="built_in">Math</span>.sin(angle1)</span><br><span class="line">      );</span><br><span class="line">      ctx.moveTo(e.line[l].x, e.line[l].y);</span><br><span class="line">      ctx.lineTo(</span><br><span class="line">        e.line[l].x + <span class="number">20</span> * <span class="built_in">Math</span>.cos(angle2),</span><br><span class="line">        e.line[l].y + <span class="number">20</span> * <span class="built_in">Math</span>.sin(angle2)</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.type == <span class="string">&quot;rect&quot;</span>) &#123; <span class="comment">// 矩形</span></span><br><span class="line">      ctx.strokeStyle = <span class="string">&quot;orange&quot;</span>;</span><br><span class="line">      ctx.beginPath();</span><br><span class="line">      ctx.moveTo(e.corners[<span class="number">0</span>].x, e.corners[<span class="number">0</span>].y);</span><br><span class="line">      e.corners.forEach(<span class="function">(<span class="params">p</span>) =&gt;</span> ctx.lineTo(p.x, p.y));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.type == <span class="string">&quot;arc&quot;</span>) &#123; <span class="comment">// 曲線</span></span><br><span class="line">      ctx.moveTo(e.corners[<span class="number">0</span>].x, e.corners[<span class="number">0</span>].y);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; e.corners.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> x_mid = (e.corners[i].x + e.corners[i + <span class="number">1</span>].x) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> cp_x1 = (x_mid + e.corners[i].x) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> cp_y1 = i % <span class="number">2</span> == <span class="number">0</span> ? e.corners[i + <span class="number">1</span>].y : e.corners[i].y;</span><br><span class="line">        ctx.quadraticCurveTo(</span><br><span class="line">          cp_x1,</span><br><span class="line">          cp_y1,</span><br><span class="line">          e.corners[i + <span class="number">1</span>].x,</span><br><span class="line">          e.corners[i + <span class="number">1</span>].y</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.type == <span class="string">&quot;circle&quot;</span>) &#123; <span class="comment">// 圓形或橢圓形</span></span><br><span class="line">      ctx.ellipse(</span><br><span class="line">        (e.corners[<span class="number">0</span>].x + e.corners[<span class="number">1</span>].x) / <span class="number">2</span>,</span><br><span class="line">        (e.corners[<span class="number">2</span>].y + e.corners[<span class="number">3</span>].y) / <span class="number">2</span>,</span><br><span class="line">        <span class="built_in">Math</span>.abs(e.corners[<span class="number">1</span>].x - e.corners[<span class="number">0</span>].x) / <span class="number">2</span>,</span><br><span class="line">        <span class="built_in">Math</span>.abs(e.corners[<span class="number">3</span>].y - e.corners[<span class="number">2</span>].y) / <span class="number">2</span>,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        <span class="built_in">Math</span>.PI * <span class="number">2</span></span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 其他</span></span><br><span class="line">      ctx.beginPath();</span><br><span class="line">      ctx.moveTo(e.corners[<span class="number">0</span>].x, e.corners[<span class="number">0</span>].y);</span><br><span class="line">      e.corners.forEach(<span class="function">(<span class="params">p</span>) =&gt;</span> ctx.lineTo(p.x, p.y));</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.stroke();</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 正在繪製的筆跡</span></span><br><span class="line">  ctx.strokeStyle = <span class="string">&quot;pink&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span> (lineCache.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    ctx.moveTo(lineCache[<span class="number">0</span>].x, lineCache[<span class="number">0</span>].y);</span><br><span class="line">    lineCache.forEach(<span class="function">(<span class="params">p</span>) =&gt;</span> &#123;</span><br><span class="line">      ctx.lineTo(p.x, p.y);</span><br><span class="line">    &#125;);</span><br><span class="line">    ctx.stroke();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 沒有任何筆跡</span></span><br><span class="line">  <span class="keyword">if</span> (lineCache.length + drawCache.length == <span class="number">0</span>)</span><br><span class="line">    ctx.fillText(</span><br><span class="line">      <span class="string">&quot;Draw Something Here.&quot;</span>,</span><br><span class="line">      canvas.width * <span class="number">0.4</span>,</span><br><span class="line">      canvas.height * <span class="number">0.45</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/11/08/flutter-isolate/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">用Isolate實現Loading Widget不卡頓</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/22/js-zoom-by-pointer/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">透過Pointer events偵測多點觸控</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Shirley</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        總訪問量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驅動&nbsp;|&nbsp;主題&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%BF%83%E5%9C%B0%E5%B1%95%E7%A4%BA%E6%99%82%E9%96%93"><span class="nav-number">1.</span> <span class="nav-text">開心地展示時間</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML"><span class="nav-number">2.1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS"><span class="nav-number">2.2.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS"><span class="nav-number">2.3.</span> <span class="nav-text">JS</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+
+</body>
+</html>
