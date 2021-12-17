@@ -18,7 +18,7 @@ tags:
 Dart中的Isolate是不會共享記憶體的，所以必須透過Port來溝通，且Dart中的溝通是異步的，這就使得寫起來變得十分複雜啊...
 
 ### 預覽目標
-![Imgur](https://imgur.com/fPbyIxA.gif)
+![flutter-isolate](https://imgur.com/fPbyIxA.gif)
 
 ### 實作
 
