@@ -9,7 +9,7 @@
     
     <title>
         
-            新手上路 - Excel VBA |
+            顏色選擇器 Color Dialog - Excel VBA |
         
         Shirley的隨手筆記
     </title>
@@ -131,7 +131,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">新手上路 - Excel VBA</span>
+            <span class="title-hover-animation">顏色選擇器 Color Dialog - Excel VBA</span>
         </div>
 
         
@@ -149,7 +149,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-12-17 10:23:31
+        <i class="fas fa-edit"></i>&nbsp;2021-12-17 16:42:46
     </span>
     
         <span class="article-categories article-meta-item">
@@ -192,27 +192,22 @@
         
 
         <div class="article-content markdown-body">
-            <h3 id="開啟VBA"><a href="#開啟VBA" class="headerlink" title="開啟VBA"></a>開啟VBA</h3><p>點擊工作表右鍵 &gt; 檢視程式碼，即可看到編輯VBA的視窗<br><img src="https://imgur.com/1s7J9Ql.png" alt="vba-begin"><br><img alt="vba-begin" src="https://imgur.com/5YSI1h8.png" style="width: 80%;"></p>
-<h3 id="開啟開發人員工作列"><a href="#開啟開發人員工作列" class="headerlink" title="開啟開發人員工作列"></a>開啟開發人員工作列</h3><ul>
-<li>Windows: 檔案 &gt; 選項 &gt; 自訂功能區 &gt; 勾選開發人員</li>
-<li>Mac: Excel &gt; 喜好設定 &gt; 功能區和工具列 &gt; 勾選開發人員<br><img src="https://imgur.com/VTBQgK7.png" alt="vba-begin"></li>
-</ul>
-<h3 id="使用按鈕複製選取儲存格文字"><a href="#使用按鈕複製選取儲存格文字" class="headerlink" title="使用按鈕複製選取儲存格文字"></a>使用按鈕複製選取儲存格文字</h3><h4 id="STEP-1-插入按鈕"><a href="#STEP-1-插入按鈕" class="headerlink" title="STEP 1 插入按鈕"></a>STEP 1 插入按鈕</h4><ul>
-<li>Windows: 開發人員 &gt; 插入 &gt; 表單控制項中的按鈕</li>
-<li>Mac: 開發人員 &gt; 按鈕<br>接著就在工作表中放置按鈕<br><img src="https://imgur.com/Jnyyw9z.png" alt="vba-begin"><blockquote>
-<p>若要移動按鈕位置或改變大小，Windows需點擊開發人員中的設計模式; Mac則需右鍵點擊按鈕</p>
+            <h3 id="使用VBA開啟顏色選擇器"><a href="#使用VBA開啟顏色選擇器" class="headerlink" title="使用VBA開啟顏色選擇器"></a>使用VBA開啟顏色選擇器</h3><p><img src="https://imgur.com/C11DgCM.gif" alt="Imgur"></p>
+<h4 id="STEP-1-新增模組"><a href="#STEP-1-新增模組" class="headerlink" title="STEP 1 新增模組"></a>STEP 1 新增模組</h4><p>於VBA Project點擊右鍵插入模組並命名為ColorDialog</p>
+<blockquote>
+<p>模組為全域性質，在活頁簿中的所有工作表皆可呼叫</p>
 </blockquote>
-</li>
-</ul>
-<h4 id="STEP-2-指定巨集"><a href="#STEP-2-指定巨集" class="headerlink" title="STEP 2 指定巨集"></a>STEP 2 指定巨集</h4><p>新增一個巨集，當按鈕按下後會呼叫<br><img src="https://imgur.com/niJHjvK.png" alt="vba-begin"><br>新增完成即會跳到巨集編輯器<br><img alt="vba-begin" src="https://imgur.com/bCf7vGl.png" style="width: 80%;"></p>
-<h4 id="STEP3-編輯巨集功能"><a href="#STEP3-編輯巨集功能" class="headerlink" title="STEP3 編輯巨集功能"></a>STEP3 編輯巨集功能</h4><p>接著我們就可以開始編寫複製功能</p>
-<ul>
-<li>Selection.Address: 當前選取的儲存格地址</li>
-<li>MsgBox: 提示框<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Btn()</span><br><span class="line">    <span class="comment">&#x27;選取儲存格的數量</span></span><br><span class="line">    <span class="keyword">If</span> Range(Selection.Address).Count = <span class="number">1</span> <span class="keyword">Then</span></span><br><span class="line">        <span class="comment">&#x27;將文字丟進剪貼簿</span></span><br><span class="line">        <span class="keyword">Dim</span> obj <span class="keyword">As</span> <span class="built_in">New</span> DataObject</span><br><span class="line">        obj.SetText Range(Selection.Address).value</span><br><span class="line">        obj.PutInClipboard</span><br><span class="line">        MsgBox <span class="string">&quot;已複製：&quot;</span> &amp; obj.GetText</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        MsgBox <span class="string">&quot;無法複製多個儲存格&quot;</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="STEP4-點擊按鈕"><a href="#STEP4-點擊按鈕" class="headerlink" title="STEP4 點擊按鈕"></a>STEP4 點擊按鈕</h4><p>寫完程式碼後就可以開始測試效果了～<br><img src="https://imgur.com/LNDpGpA.gif" alt="vba-begin"></p>
-<h3 id="儲存"><a href="#儲存" class="headerlink" title="儲存"></a>儲存</h3><p>儲存有巨集的Excel時必須存成<strong>啟用巨集的活頁簿（<code>.*xlsm</code>）</strong>，若存為一般的<code>.*xls</code>是無法啟用巨集的哦～</p>
+<p><img src="https://imgur.com/4v5uq1d.png" alt="vba-color-dialog"></p>
+<h4 id="STEP-2-新增function-Show"><a href="#STEP-2-新增function-Show" class="headerlink" title="STEP 2 新增function Show()"></a>STEP 2 新增function <code>Show()</code></h4><p>新增完成後即可在左側模組的資料夾下看到，點擊兩下即可叫出視窗編輯，接著我們就可以在ColorDialog模組下加入<code>Show()</code>來開啟顏色選擇器</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;開啟顏色選擇對話框</span></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Function</span> Show() <span class="keyword">As</span> <span class="type">Long</span> <span class="comment">&#x27;宣告回傳選中顏色值的型態</span></span><br><span class="line">    <span class="keyword">Dim</span> FullColorCode <span class="keyword">As</span> <span class="type">Long</span></span><br><span class="line">    <span class="comment">&#x27;如果有選擇並按確認</span></span><br><span class="line">    <span class="comment">&#x27;Application.Dialogs(xlDialogEditColor).Show(Alpha, R, G, B) &lt;-- 初始顏色</span></span><br><span class="line">    <span class="keyword">If</span> Application.Dialogs(xlDialogEditColor).Show(<span class="number">1</span>, <span class="number">84</span>, <span class="number">96</span>, <span class="number">164</span>) = <span class="literal">True</span> <span class="keyword">Then</span></span><br><span class="line">        FullColorCode = ActiveWorkbook.Colors(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    Show = FullColorCode <span class="comment">&#x27;回傳選中的顏色</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+<img alt="vba-color-dialog" src="https://imgur.com/sSBjKPU.png" style="width: 80%">
 
+
+<p>完成後便可以按下執行測試，就可以發現已經可以成功叫出選擇顏色的對話框了！<br><img alt="vba-color-dialog" src="https://imgur.com/iAaPvSP.png" style="width: 80%"></p>
+<h4 id="STEP-3-關聯至工作表"><a href="#STEP-3-關聯至工作表" class="headerlink" title="STEP 3 關聯至工作表"></a>STEP 3 關聯至工作表</h4><p>於巨集編輯器左側展開Microsoft Excel物件，打開要關聯的工作表，新增一個<code>Worksheet_BeforeDoubleClick</code>，當點擊兩下儲存格時叫出顏色選擇器</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Private</span> <span class="keyword">Sub</span> Worksheet_BeforeDoubleClick(<span class="keyword">ByVal</span> Target <span class="keyword">As</span> Range, Cancel <span class="keyword">As</span> <span class="type">Boolean</span>)</span><br><span class="line">    <span class="keyword">Dim</span> color <span class="keyword">As</span> <span class="type">Long</span> <span class="comment">&#x27;顏色</span></span><br><span class="line">    <span class="keyword">Dim</span> R, G, B <span class="keyword">As</span> <span class="type">Integer</span> <span class="comment">&#x27;RGB值</span></span><br><span class="line">    <span class="keyword">Dim</span> row <span class="keyword">As</span> <span class="type">Integer</span> <span class="comment">&#x27;列數</span></span><br><span class="line">    <span class="keyword">Dim</span> cell <span class="keyword">As</span> Range</span><br><span class="line">    <span class="comment">&#x27;呼叫Module ColorDialog中的Funciton Show</span></span><br><span class="line">    color = ColorDialog.Show</span><br><span class="line">    <span class="comment">&#x27;將color轉為RGB</span></span><br><span class="line">    R = color <span class="built_in">Mod</span> <span class="number">256</span></span><br><span class="line">    G = (color \ <span class="number">256</span>) <span class="built_in">Mod</span> <span class="number">256</span></span><br><span class="line">    B = color \ <span class="number">65536</span></span><br><span class="line">    <span class="comment">&#x27;獲取點擊列數</span></span><br><span class="line">    row = Target.row</span><br><span class="line">    <span class="comment">&#x27;將儲存格設為點擊列數的B欄</span></span><br><span class="line">    <span class="keyword">Set</span> cell = Cells(row, <span class="number">2</span>)</span><br><span class="line">    <span class="comment">&#x27;設置前一個儲存格背景色</span></span><br><span class="line">    cell.Previous.Interior.color = color</span><br><span class="line">    <span class="comment">&#x27;將轉換成HexColor的值放進儲存格</span></span><br><span class="line">    cell.value = Application.Dec2Hex(R, <span class="number">2</span>) + Application.Dec2Hex(G, <span class="number">2</span>) + Application.Dec2Hex(B, <span class="number">2</span>)</span><br><span class="line">    <span class="comment">&#x27;將轉換成RGB的值放進右邊儲存格</span></span><br><span class="line">    cell.<span class="keyword">Next</span>.value = R &amp; <span class="string">&quot;, &quot;</span> &amp; G &amp; <span class="string">&quot;, &quot;</span> &amp; B</span><br><span class="line">    <span class="comment">&#x27;設置右側儲存格邊框</span></span><br><span class="line">    <span class="keyword">With</span> cell.<span class="keyword">Next</span>.Borders(xlEdgeRight)</span><br><span class="line">        .LineStyle = xlContinous <span class="comment">&#x27;邊框樣式</span></span><br><span class="line">        .Weight = xlThick <span class="comment">&#x27;邊框粗細</span></span><br><span class="line">        .color = color <span class="comment">&#x27;邊框顏色</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<img alt="vba-color-dialog" src="https://imgur.com/NKXz86U.png" style="width: 80%">
         </div>
 
         
@@ -220,29 +215,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/12/17/vba-color-picker/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">顏色選擇器 Color Dialog - Excel VBA</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/12/16/flutter-isolate/"
+                           href="/2021/12/17/vba-begin/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">用Isolate實現Loading Widget不卡頓</span>
+                                <span class="post-nav-title-item">新手上路 - Excel VBA</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -362,7 +342,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%95%9FVBA"><span class="nav-text">開啟VBA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%95%9F%E9%96%8B%E7%99%BC%E4%BA%BA%E5%93%A1%E5%B7%A5%E4%BD%9C%E5%88%97"><span class="nav-text">開啟開發人員工作列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%89%E9%88%95%E8%A4%87%E8%A3%BD%E9%81%B8%E5%8F%96%E5%84%B2%E5%AD%98%E6%A0%BC%E6%96%87%E5%AD%97"><span class="nav-text">使用按鈕複製選取儲存格文字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP-1-%E6%8F%92%E5%85%A5%E6%8C%89%E9%88%95"><span class="nav-text">STEP 1 插入按鈕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP-2-%E6%8C%87%E5%AE%9A%E5%B7%A8%E9%9B%86"><span class="nav-text">STEP 2 指定巨集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP3-%E7%B7%A8%E8%BC%AF%E5%B7%A8%E9%9B%86%E5%8A%9F%E8%83%BD"><span class="nav-text">STEP3 編輯巨集功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP4-%E9%BB%9E%E6%93%8A%E6%8C%89%E9%88%95"><span class="nav-text">STEP4 點擊按鈕</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%84%B2%E5%AD%98"><span class="nav-text">儲存</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8VBA%E9%96%8B%E5%95%9F%E9%A1%8F%E8%89%B2%E9%81%B8%E6%93%87%E5%99%A8"><span class="nav-text">使用VBA開啟顏色選擇器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP-1-%E6%96%B0%E5%A2%9E%E6%A8%A1%E7%B5%84"><span class="nav-text">STEP 1 新增模組</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP-2-%E6%96%B0%E5%A2%9Efunction-Show"><span class="nav-text">STEP 2 新增function Show()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STEP-3-%E9%97%9C%E8%81%AF%E8%87%B3%E5%B7%A5%E4%BD%9C%E8%A1%A8"><span class="nav-text">STEP 3 關聯至工作表</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
