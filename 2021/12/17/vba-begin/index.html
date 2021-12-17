@@ -208,7 +208,7 @@
 <h4 id="STEP3-編輯巨集功能"><a href="#STEP3-編輯巨集功能" class="headerlink" title="STEP3: 編輯巨集功能"></a>STEP3: 編輯巨集功能</h4><p>接著我們就可以開始編寫複製功能</p>
 <ul>
 <li>Selection.Address: 當前選取的儲存格地址</li>
-<li>MsgBox: 提示框<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Btn()</span><br><span class="line">    <span class="comment">&#x27;選取儲存格的數量</span></span><br><span class="line">    <span class="keyword">If</span> Range(Selection.Address).Count = <span class="number">1</span> <span class="keyword">Then</span></span><br><span class="line">        <span class="comment">&#x27;將文字丟進剪貼簿</span></span><br><span class="line">        <span class="keyword">Dim</span> obj As <span class="keyword">New</span> DataObject</span><br><span class="line">        obj.SetText Range(Selection.Address).value</span><br><span class="line">        obj.PutInClipboard</span><br><span class="line">        MsgBox <span class="string">&quot;已複製：&quot;</span> &amp; obj.GetText</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        MsgBox <span class="string">&quot;無法複製多個儲存格&quot;</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure></li>
+<li>MsgBox: 提示框<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Btn()</span><br><span class="line">    <span class="comment">&#x27;選取儲存格的數量</span></span><br><span class="line">    <span class="keyword">If</span> Range(Selection.Address).Count = <span class="number">1</span> <span class="keyword">Then</span></span><br><span class="line">        <span class="comment">&#x27;將文字丟進剪貼簿</span></span><br><span class="line">        <span class="keyword">Dim</span> obj <span class="keyword">As</span> <span class="built_in">New</span> DataObject</span><br><span class="line">        obj.SetText Range(Selection.Address).value</span><br><span class="line">        obj.PutInClipboard</span><br><span class="line">        MsgBox <span class="string">&quot;已複製：&quot;</span> &amp; obj.GetText</span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        MsgBox <span class="string">&quot;無法複製多個儲存格&quot;</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="STEP4-點擊按鈕"><a href="#STEP4-點擊按鈕" class="headerlink" title="STEP4: 點擊按鈕"></a>STEP4: 點擊按鈕</h4><p>寫完程式碼後就可以開始測試效果了～<br><img src="https://imgur.com/LNDpGpA.gif" alt="vba-begin"></p>
 <h3 id="儲存"><a href="#儲存" class="headerlink" title="儲存"></a>儲存</h3><p>儲存有巨集的Excel時必須存成<strong>啟用巨集的活頁簿（<code>.*xlsm</code>）</strong>，若存為一般的<code>.*xls</code>是無法啟用巨集的哦～</p>
@@ -300,46 +300,119 @@
     
 
     <div class="right-bottom-side-tools">
-        <div class="side-tools-container">
-    <ul class="side-tools-list">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fas fa-search-plus"></i>
-        </li>
+        $tools-item-width = 32px;
+$tools-item-font-size = 1.1rem;
+$tools-item-border-radius = 1px;
 
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fas fa-search-minus"></i>
-        </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fas fa-arrows-alt-h"></i>
-        </li>
+.side-tools-container {
+  position: relative;
 
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fas fa-moon"></i>
-        </li>
+  .tools-item {
+    width: $tools-item-width;
+    height: $tools-item-width;
+    font-size: $tools-item-font-size;
+    margin-bottom: 3px;
+    cursor: pointer;
+    border-right: none;
+    border-radius: $tools-item-border-radius;
+    box-shadow: 1px 1px 3px var(--shadow-color);
+    color: var(--default-text-color);
+    background: var(--background-color);
 
-        <!-- rss -->
-        
+    i {
+      color: var(--default-text-color);
+    }
 
-        
+    &:hover {
+      color: var(--background-color);
+      background: var(--primary-color);
+      box-shadow: 2px 2px 6px var(--shadow-color);
 
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fas fa-arrow-down"></i>
-        </li>
-    </ul>
+      i {
+        color: var(--background-color);
+      }
+    }
 
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fas fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-    </ul>
-</div>
+    +keep-tablet() {
+      width: $tools-item-width * 0.9;
+      height: $tools-item-width * 0.9;
+      font-size: $tools-item-font-size * 0.9;
+      margin-bottom: 2px;
+    }
+
+    &.rss {
+
+      a {
+        border-radius: $tools-item-border-radius;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+          color: var(--background-color);
+          background: var(--primary-color);
+          box-shadow: 2px 2px 6px var(--shadow-color);
+        }
+      }
+    }
+  }
+
+
+  .side-tools-list {
+    opacity: 0;
+    transform: translateX(100%);
+    transition-t("transform, opacity", "0, 0", "0.2, 0.2", "linear, linear");
+
+    .tool-expand-width {
+      +keep-tablet() {
+        display: none;
+      }
+    }
+
+
+    &.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+
+  .exposed-tools-list {
+
+    if (hexo-config('style.scroll.percent.enable') == true) {
+      .tool-scroll-to-top {
+        display: none;
+
+        &.show {
+          display: flex;
+        }
+
+        &:hover {
+
+          .percent {
+            display: none;
+          }
+
+          .arrow-up {
+            display: flex;
+          }
+
+        }
+
+        .arrow-up {
+          display: none;
+        }
+
+        .percent {
+          display: flex;
+          font-size: 1rem;
+        }
+
+      }
+
+    }
+  }
+}
 
     </div>
 
@@ -401,5 +474,8 @@
 
 
 
+<!-- Google Ad -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7864212874468811"
+     crossorigin="anonymous"></script>
 </body>
 </html>
