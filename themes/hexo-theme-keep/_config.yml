@@ -74,7 +74,7 @@ menu:
   Categories: /categories
   # Tags: /tags
   # Links: /links
-  # About: /about
+  About: /about
   # Changelog: /changelog
   # ......
 
@@ -126,7 +126,7 @@ toc:
   enable: true
 
   # Automatically add list number to toc.
-  number: true
+  number: false
 
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
   expand_all: true

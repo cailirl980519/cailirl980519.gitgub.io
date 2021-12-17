@@ -1,5 +1,5 @@
 ---
-title: 新手上路 - Excel VBA
+title: 新手上路 | Excel VBA
 date: 2021-12-17 10:23:31
 categories: Excel VBA
 tags:
@@ -19,24 +19,24 @@ tags:
 
 ### 使用按鈕複製選取儲存格文字
 
-#### STEP 1: 插入按鈕
+#### STEP 1 插入按鈕
 - Windows: 開發人員 > 插入 > 表單控制項中的按鈕
 - Mac: 開發人員 > 按鈕
 接著就在工作表中放置按鈕
 ![vba-begin](https://imgur.com/Jnyyw9z.png)
 > 若要移動按鈕位置或改變大小，Windows需點擊開發人員中的設計模式; Mac則需右鍵點擊按鈕
 
-#### STEP 2: 指定巨集
+#### STEP 2 指定巨集
 新增一個巨集，當按鈕按下後會呼叫
 ![vba-begin](https://imgur.com/niJHjvK.png)
 新增完成即會跳到巨集編輯器
 <img alt="vba-begin" src="https://imgur.com/bCf7vGl.png" style="width: 80%;">
 
-#### STEP3: 編輯巨集功能
+#### STEP3 編輯巨集功能
 接著我們就可以開始編寫複製功能
 - Selection.Address: 當前選取的儲存格地址
 - MsgBox: 提示框
-``` vbscript
+``` vb
 Sub Btn()
     '選取儲存格的數量
     If Range(Selection.Address).Count = 1 Then
@@ -51,7 +51,7 @@ Sub Btn()
 End Sub
 ```
 
-#### STEP4: 點擊按鈕
+#### STEP4 點擊按鈕
 寫完程式碼後就可以開始測試效果了～
 ![vba-begin](https://imgur.com/LNDpGpA.gif)
 
