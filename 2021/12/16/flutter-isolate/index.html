@@ -143,7 +143,7 @@
                     <div class="author">
                         <span class="name">Shirley</span>
                         
-                            <span class="author-label">Flutter實習生</span>
+                            <span class="author-label">Engineer</span>
                         
                     </div>
                     <div class="meta-info">
@@ -201,7 +201,7 @@
 </blockquote>
 <p>剛開始接觸Flutter時，完全沒有認真研究過他的執行序，認為只要把複雜或需要時間的工作丟進Future, async, await就解決一切了，直到…我發現UI變得超卡的！！於是就誕生了這篇文章…紀錄在頁面放上loading元件<code>CircularProgressIndicator()</code>並在背後做繁重的運算。</p>
 <h3 id="Dart中的Isolate"><a href="#Dart中的Isolate" class="headerlink" title="Dart中的Isolate"></a>Dart中的Isolate</h3><p>如果不特別創建Isolate，我們的所有程式碼幾乎都是在預設的main Isolate中執行的，不管是使用Future, async, await，最後都還是在同一個Isolate上進行處理，如果我們給main Isolate太多繁重的工作，UI就會開始延遲，因此我們就需要一個新的Isolate來分擔繁重的工作。<br>Dart中的Isolate是不會共享記憶體的，所以必須透過Port來溝通，且Dart中的溝通是異步的，這就使得寫起來變得十分複雜啊…</p>
-<h3 id="預覽目標"><a href="#預覽目標" class="headerlink" title="預覽目標"></a>預覽目標</h3><p><img src="https://imgur.com/fPbyIxA.gif" alt="Imgur"></p>
+<h3 id="預覽目標"><a href="#預覽目標" class="headerlink" title="預覽目標"></a>預覽目標</h3><p><img src="https://imgur.com/fPbyIxA.gif" alt="flutter-isolate"></p>
 <h3 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h3><p>首先，我們需要一個非常繁重的工作，於是我們就創一個超繁重的while迴圈，Isolate的工作內容都需寫在最上層（global）或是static funciton。</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> countEven() &#123;</span><br><span class="line">  <span class="built_in">int</span> <span class="built_in">num</span> = Random().nextInt(<span class="number">100</span>) + <span class="number">1000000000</span>;</span><br><span class="line">  <span class="built_in">int</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">num</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">num</span> % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">num</span>--;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> count % <span class="number">1000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -239,6 +239,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/12/16/vba-begin/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">新手上路 - Excel VBA</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
