@@ -108,7 +108,7 @@ post:
     enable: true
     auto: false  # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
-    custom_label_list: [ "Flutter實習生", "Engineer", "Architect", "CTO", "BOSS" ]
+    custom_label_list: [ "Flutter實習生", "VBA新手", "Architect", "CTO", "BOSS" ]
 
 
 # ---------------------------------------------------------------------------------------

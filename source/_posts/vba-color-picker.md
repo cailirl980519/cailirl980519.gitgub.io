@@ -5,12 +5,13 @@ categories: Excel VBA
 tags:
 - Excel
 - VBA
+- Color Dialog
 ---
 
 
 ### 使用VBA開啟顏色選擇器
 
-![Imgur](https://imgur.com/C11DgCM.gif)
+<video autoplay muted loop src="https://imgur.com/B7Jvktz.mp4" type="video/mp4" style="width:100%"></video>
 
 #### STEP 1 新增模組
 
