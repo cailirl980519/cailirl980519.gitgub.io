@@ -111,3 +111,4 @@ sitemap:
   path: sitemap.xml
   tags: true
   categories: true
+  template: ./sitemap.xml
