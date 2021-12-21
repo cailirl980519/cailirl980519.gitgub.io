@@ -18,10 +18,13 @@
     
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 
+    
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"cailirl980519.github.io","root":"/","language":"zh-TW"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF9933","avatar":"/images/logo.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"The best error message is the one that never shows up."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.hexo_config = {"hostname":"cailirl980519.github.io","root":"/","language":"zh-TW","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF9933","avatar":"/images/logo.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"The best error message is the one that never shows up."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分鍾前","hour":"%s 小時前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
   </script>
     <!-- Google Ad -->
@@ -32,7 +35,14 @@
 <body>
 <div class="progress-bar-container">
     
+        <span class="scroll-progress-bar"></span>
+    
 
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
     
 </div>
 
@@ -42,7 +52,7 @@
     
         <div class="first-screen-container flex-center fade-in-down-animation">
     <div class="content flex-center">
-        <div class="description">
+        <div class="description" data-aos="zoom-in">
             The best error message is the one that never shows up.
         </div>
         
@@ -137,9 +147,15 @@
                         </li>
                     
                     
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
                 </ul>
             </div>
             <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -189,7 +205,7 @@
                     <div class="home-content-container fade-in-down-animation">
     <ul class="home-article-list">
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -257,7 +273,7 @@ STEP 2 新增function Show()新增完成後即可在左側模組...
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -325,7 +341,7 @@ STEP 2 新增function Show()新增完成後即可在左側模組的資...
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -385,7 +401,7 @@ Mac: Excel &gt; 喜好設定 &gt; 功能區和工具列 &...
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -450,7 +466,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -518,7 +534,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -580,7 +596,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -647,7 +663,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -715,7 +731,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -784,7 +800,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
             </li>
         
-            <li class="home-article-item">
+            <li class="home-article-item" data-aos="fade-right">
 
                 
 
@@ -842,7 +858,7 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
             2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Shirley</a>
         </div>
         
-            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <div class="website-count info-item">
                 
                 
@@ -916,6 +932,35 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
 
     
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜尋..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
 </main>
 
@@ -935,6 +980,10 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
 
 
+    
+<script src="/js/local-search.js"></script>
+
+
 
 
     
@@ -944,14 +993,53 @@ Flutter預設是單執行緒處理，在你還沒發覺UI變得卡頓時，你�
 
 
 
-<div class="post-scripts">
+<div class="post-scripts pjax">
     
 </div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 
 
     <script color="129, 201, 149" pointColor="241, 243, 244" count="99" src="https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/2.0.4/canvas-nest.js"></script>
 
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 </body>
 </html>
