@@ -1,4 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
 
 Sitemap: https://cailirl980519.github.io/sitemap.xml
