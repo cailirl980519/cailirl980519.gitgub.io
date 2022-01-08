@@ -1,23 +1,23 @@
-<div class="fade-in-down-animation">
-    <div class="article-content-container">
+<div>
+    <div class="article-content-container" data-aos="fade-down">
 
-        <div class="article-title">
+        <div class="article-title" data-aos="fade-down" data-aos-delay="100">
             <span class="title-hover-animation"><%= page.title %></span>
         </div>
 
         <% if (theme.base_info.author || config.author) { %>
             <div class="article-header">
-                <div class="avatar">
+                <div class="avatar" data-aos="zoom-in" data-aos-delay="100">
                     <%- image_tag(theme.style.avatar) %>
                 </div>
                 <div class="info">
-                    <div class="author">
+                    <div class="author" data-aos="fade-right" data-aos-delay="200">
                         <span class="name"><%= theme.base_info.author || config.author %></span>
                         <% if (theme.hasOwnProperty('post') && theme.post.author_label.enable === true) { %>
                             <span class="author-label"><%- getAuthorLabel(site.posts.length, theme.post.author_label.auto, theme.post.author_label.custom_label_list) %></span>
                         <% } %>
                     </div>
-                    <div class="meta-info">
+                    <div class="meta-info" data-aos="fade-right" data-aos-delay="200">
                         <%- partial('_partial/article-meta-info', {articleObject: page, index: true}) %>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
             </div>
         <% } %>
 
-        <div class="article-content markdown-body">
+        <div class="article-content markdown-body" data-aos="fade-down" data-aos-delay="500">
             <%- page.content %>
         </div>
 

@@ -112,3 +112,13 @@ sitemap:
   tags: true
   categories: true
   template: ./sitemap.xml
+
+# Security
+encrypt: # hexo-blog-encrypt
+  silent: true
+  abstract: 這是一篇加密文章，需要密碼才能繼續閲讀。
+  message: 當前文章暫不對外可見，請輸入密碼後查看！
+  tags:
+  - {name: "股市分析", password: 168168}
+  wrong_pass_message: 抱歉，您輸入的密碼錯誤，請檢查後重新輸入。
+  wrong_hash_message: 抱歉, 當前文章不能被校驗, 不過您還是可以看看解密後的內容。
