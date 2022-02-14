@@ -45,7 +45,7 @@ style:
   # Scroll style settings
   scroll:
     progress_bar:
-      enable: true
+      enable: false
     percent:
       enable: true
 

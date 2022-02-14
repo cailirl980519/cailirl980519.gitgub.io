@@ -14,7 +14,6 @@
   "dependencies": {
     "canvas-nest.js": "^2.0.4",
     "hexo": "^5.4.0",
-    "hexo-blog-encrypt": "^3.1.6",
     "hexo-cli": "^4.3.0",
     "hexo-codepen": "^0.1.1",
     "hexo-deployer-git": "^3.0.0",

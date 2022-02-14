@@ -3,6 +3,7 @@ title: 那些封裝Flutter for Windows Desktop踩過的坑
 date: 2021-10-05 17:58:52
 categories: Flutter
 tags: 
+- App
 - Flutter
 - Dart
 - Windows

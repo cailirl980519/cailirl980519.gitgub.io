@@ -10,11 +10,8 @@
                 <% postYear.postList.forEach(post => { %>
                     <li class="article-item">
                         <a class="article-title"
-                        href="<%- url_for(post.path) %>"
+                            href="<%- url_for(post.path) %>"
                         ><%= post.title %></a>
-                        <% if (post.encrypt) { %>
-                            <i class="fas fa-lock"></i>
-                        <% } %>
                         <span class="article-date"><%= date(post.date, 'MM-DD') %></span>
                     </li>
                 <% }) %>
