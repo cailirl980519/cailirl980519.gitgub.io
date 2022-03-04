@@ -660,7 +660,7 @@
 <p>設置完成後即可以登入確認，並檢查MariaDB版本</p>
 <figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mysql -u root -p</span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 36</span><br><span class="line">Server version: 10.3.31-MariaDB-0+deb10u1 Debian 10</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; SELECT VERSION();</span><br><span class="line">+---------------------------+</span><br><span class="line">| VERSION()                 |</span><br><span class="line">+---------------------------+</span><br><span class="line">| 10.3.31-MariaDB-0+deb10u1 |</span><br><span class="line">+---------------------------+</span><br><span class="line">1 row in set (0.000 sec)</span><br></pre></td></tr></table></figure>
 
-<h3 id="設置PHP"><a href="#設置PHP" class="headerlink" title="設置PHP"></a>設置PHP</h3><p>若要變更PHP配置，則要打開<code>/etc/php/7.3/fpm/php.ini</code></p>
+<h2 id="設置PHP"><a href="#設置PHP" class="headerlink" title="設置PHP"></a>設置PHP</h2><p>若要變更PHP配置，則要打開<code>/etc/php/7.3/fpm/php.ini</code></p>
 <figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi etc/php/7.3/fpm/php.ini</span></span><br></pre></td></tr></table></figure>
 
 <p>編輯完成後儲存並重啟PHP</p>
