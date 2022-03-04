@@ -47,6 +47,7 @@
         <tag>Flutter</tag>
         <tag>Dart</tag>
         <tag>Isolate</tag>
+        <tag>App</tag>
       </tags>
   </entry>
   <entry>
@@ -150,6 +151,7 @@
         <tag>Dart</tag>
         <tag>Windows</tag>
         <tag>MSIX</tag>
+        <tag>App</tag>
       </tags>
   </entry>
   <entry>
@@ -215,6 +217,7 @@
         <tag>Dart</tag>
         <tag>Windows</tag>
         <tag>Edge Webview2</tag>
+        <tag>App</tag>
       </tags>
   </entry>
   <entry>
@@ -389,6 +392,7 @@
         <tag>Dart</tag>
         <tag>Windows</tag>
         <tag>Edge Webview2</tag>
+        <tag>App</tag>
       </tags>
   </entry>
   <entry>
@@ -479,6 +483,130 @@
         <tag>Excel</tag>
         <tag>VBA</tag>
         <tag>Image Picker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>擁有強大編輯器的互動動畫 | Rive</title>
+    <url>/2022/02/14/rive-begin/</url>
+    <content><![CDATA[<p>第一次看到<a class="link"   href="https://rive.app/" >Rive<i class="fas fa-external-link-alt"></i></a>是在Flutter官網的Showcase裡，發現它可以客製化互動動畫，還可以跟著使用者的動作或狀態去改變動畫，也太酷了吧！而且看了Rive的官網簡介發現，他竟然支援超多運行環境(Runtime)的！於是就開始掉入坑內…</p>
+<h2 id="支援的Runtime"><a href="#支援的Runtime" class="headerlink" title="支援的Runtime"></a>支援的Runtime</h2><h3 id="官方"><a href="#官方" class="headerlink" title="官方"></a>官方</h3><ul>
+<li>Web</li>
+<li>React</li>
+<li>iOS</li>
+<li>Android</li>
+<li>Flutter</li>
+<li>C++</li>
+<li>Tizen</li>
+<li>React Native</li>
+</ul>
+<h3 id="社群"><a href="#社群" class="headerlink" title="社群"></a>社群</h3><ul>
+<li>Vue.js</li>
+<li>Angular</li>
+<li>AWTK</li>
+</ul>
+<blockquote>
+<p>簡直是現正流行的開發Runtime都支援了…聽說未來還會支援Unity呢</p>
+</blockquote>
+<p>剛開始在搜尋引擎上搜尋Rive，發現中文資料超少外，反而搜到很多關於<strong>Flare</strong>(Rive的前身)的資料，完全沒有Rive的中文資源，於是就打算來整理一份關於Rive的資料，以便以後複習使用。</p>
+<h2 id="優缺點"><a href="#優缺點" class="headerlink" title="優缺點"></a>優缺點</h2><h3 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h3><ul>
+<li>對於UX設計師(Editor)</li>
+</ul>
+<ul>
+<li>支援桌面及Web應用</li>
+<li>支援多人共同編輯(須付費)</li>
+<li>支援raster image</li>
+<li>編輯器好上手</li>
+</ul>
+<ul>
+<li>對於開發者(Runtime)</li>
+</ul>
+<ul>
+<li>輸出檔案容量小</li>
+<li>高解析度</li>
+<li>根據不同狀態呈現不同動畫</li>
+</ul>
+<h3 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h3><ul>
+<li>社群作品不夠多</li>
+<li>官網不支援搜尋作品(超不方便的！)</li>
+<li>Beta版線上編輯器偶爾會崩潰(記得存檔)</li>
+<li>無法從After Effect匯入</li>
+<li>Adobe XD匯入動畫可能不完整</li>
+</ul>
+<h2 id="版面介紹"><a href="#版面介紹" class="headerlink" title="版面介紹"></a>版面介紹</h2><p><img src="https://i.imgur.com/WcvDfmP.jpg" alt="Imgur"></p>
+<ol>
+<li>Community: 社群作品<br>可以直接在裡面找喜歡的作品套用到現有的應用上</li>
+<li>Resource: 官方資源<br>各式各樣的範例及官方文件</li>
+<li>Launch: 線上編輯器<br>用來客製化自己的作品，也可將喜歡的社群作品匯入編輯</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Rive</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>App</tag>
+        <tag>Rive</tag>
+        <tag>Interactive Animation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux硬碟的大小事</title>
+    <url>/2022/03/04/linux-disk/</url>
+    <content><![CDATA[<p>今天想要來幫目前已經在運行的GCP VM來掛載一個新的硬碟，使會持續變多的資料不要存在開機碟，而是把他掛載到新的硬碟裡，這樣之後也可以方便地隨著資料增加而擴增。</p>
+<h2 id="新增磁碟"><a href="#新增磁碟" class="headerlink" title="新增磁碟"></a>新增磁碟</h2><h3 id="GCP端"><a href="#GCP端" class="headerlink" title="GCP端"></a>GCP端</h3><p>首先要從GCP選擇需要增加硬碟的VM，並點擊編輯來新增一個新的硬碟或已存在的硬碟，選擇完後按儲存GCP這邊就新增完成了！<br><img src="https://imgur.com/mgnuN28.png" alt="Imgur"></p>
+<h3 id="Linux端"><a href="#Linux端" class="headerlink" title="Linux端"></a>Linux端</h3><blockquote>
+<p>以下指令皆使用root呼叫</p>
+</blockquote>
+<h4 id="確認磁碟狀態"><a href="#確認磁碟狀態" class="headerlink" title="確認磁碟狀態"></a>確認磁碟狀態</h4><p>第一步先列出目前有的硬碟，而我新增的硬碟叫<strong>sdb</strong>，大小為256GB</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lsblk</span></span><br><span class="line">NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sda       8:0    0   10G  0 disk </span><br><span class="line">├─sda1    8:1    0  9.9G  0 part /</span><br><span class="line">├─sda14   8:14   0    3M  0 part </span><br><span class="line">└─sda15   8:15   0  124M  0 part /boot/efi</span><br><span class="line">sdb       8:16   0  256G  0 disk</span><br></pre></td></tr></table></figure>
+
+<p>再來確認一下硬碟的掛載狀態，可以看到目前我們新增的硬碟還沒有被掛載</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">udev            2.0G     0  2.0G   0% /dev</span><br><span class="line">/dev/sda1       9.7G  1.9G  7.4G  20% /</span><br><span class="line">/dev/sda15      124M  5.7M  119M   5% /boot/efi</span><br></pre></td></tr></table></figure>
+
+<h4 id="格式化磁碟"><a href="#格式化磁碟" class="headerlink" title="格式化磁碟"></a>格式化磁碟</h4><p>接下來我們使用<code>mkfs</code>來格式化硬碟，並使用<code>ext4</code>文件系統，之後便可以快速增加硬碟大小，不需修改分區</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/sdb</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>-m 0: 使用所有可用的磁碟空間<br>-E  : 最大限度的提高磁碟性能</p>
+</blockquote>
+<h4 id="掛載磁碟"><a href="#掛載磁碟" class="headerlink" title="掛載磁碟"></a>掛載磁碟</h4><p>接著創建一個掛載磁碟的目錄，這邊創建一個<code>/data</code>目錄</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir -p data</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br><span class="line">bin   data  etc   lib    lib64   lost+found  mnt  proc  run   srv  tmp  var</span><br><span class="line">boot  dev   home  lib32  libx32  media       opt  root  sbin  sys  usr</span><br></pre></td></tr></table></figure>
+
+<p>再來使用<code>mount</code>來將磁碟掛載到對應的目錄</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mount -o discard,defaults /dev/sdb /data</span></span><br></pre></td></tr></table></figure>
+
+<p>並讓所有用戶有讀寫權限</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> chmod a+w /data</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="設置開機時自動掛載"><a href="#設置開機時自動掛載" class="headerlink" title="設置開機時自動掛載"></a>設置開機時自動掛載</h4><p>獲取磁碟的<strong>UUID</strong></p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> blkid dev/sdb -s UUID -o value</span></span><br><span class="line">ccff9e1e-b518-4ac5-aabd-e37988247c95</span><br></pre></td></tr></table></figure>
+
+<p>複製磁碟的UUID，打開<code>/etc/fstab</code></p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi etc/fstab</span></span><br></pre></td></tr></table></figure>
+
+<p>將硬碟加入<code>/etc/fstab</code>，<code>nofail</code>為在磁碟不可用時也能開機</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">UUID=ccff9e1e-b518-4ac5-aabd-e37988247c95 /data ext4 discard,defaults,nofail 0 2</span><br></pre></td></tr></table></figure>
+
+<p>接著重新啟動VM，並確認磁碟狀態，如果新磁碟有掛載上去就大功告成了～～</p>
+<h2 id="增加磁碟大小"><a href="#增加磁碟大小" class="headerlink" title="增加磁碟大小"></a>增加磁碟大小</h2><h3 id="GCP端-1"><a href="#GCP端-1" class="headerlink" title="GCP端"></a>GCP端</h3><p>在<strong>Compute Engine</strong> &gt; <strong>磁碟</strong> 選擇要擴增的磁碟然後編輯它的大小，並儲存</p>
+<blockquote>
+<p>大小只能增加不能減少</p>
+</blockquote>
+<p><img src="https://imgur.com/uajWt0O.png" alt="Imgur"></p>
+<h3 id="Linux端-1"><a href="#Linux端-1" class="headerlink" title="Linux端"></a>Linux端</h3><blockquote>
+<p>此方法只適用不是開機碟的磁碟</p>
+</blockquote>
+<p>使用<code>resize2fs</code>調整磁碟掛載大小</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">resize2fs /dev/sdb</span><br></pre></td></tr></table></figure>
+
+<p>然後再使用<code>df -h</code>確認掛載大小就成功了～是不是超簡單！</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Debian</tag>
+        <tag>GCP</tag>
       </tags>
   </entry>
 </search>
