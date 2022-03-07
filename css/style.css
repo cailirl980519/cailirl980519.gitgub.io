@@ -1338,7 +1338,7 @@ pre .javascript .function {
   align-items: center;
   justify-content: center;
   background: var(--background-color);
-  padding-top: 2px;
+  padding-top: 3px;
   box-shadow: 2px 2px 5px var(--shadow-color);
 }
 .header-wrapper .header-content {
@@ -1434,7 +1434,7 @@ pre .javascript .function {
   bottom: -13.2px;
 }
 .header-wrapper .header-content .right .pc .menu-list .menu-item.search {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-left: 26px;
 }
 .header-wrapper .header-content .right .pc .menu-list .menu-item.search i {
