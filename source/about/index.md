@@ -8,4 +8,4 @@ Hi~我是Shirley，一個原本寫前端但被Flutter吸引的工程師。為了
 文章中若有任何錯誤或版權問題再麻煩各位網友指正或通知我，一收到消息一定會立刻移除或修正的！
 #### 聯絡方式
 
-<i class="fas fa-envelope"></i> <span>cailirl980519@gmail.com</span>
+<i class="fa fa-envelope"></i> <span>cailirl980519@gmail.com</span>

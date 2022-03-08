@@ -1,6 +1,7 @@
 ---
 title: Flutter的Windows套件 - webview_windows (2)
 date: 2021-10-13 14:37:03
+cover: https://i.imgur.com/ZfztlMU.gif
 categories: Flutter
 tags:
 - App

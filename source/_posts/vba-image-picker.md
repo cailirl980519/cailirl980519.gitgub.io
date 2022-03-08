@@ -1,6 +1,7 @@
 ---
 title: 匯入圖片 Image Picker | Excel VBA
 date: 2021-12-20 16:11:11
+cover: https://i.imgur.com/uss69V2.png
 categories: Excel VBA
 tags:
 - Excel

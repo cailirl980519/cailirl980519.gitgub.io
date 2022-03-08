@@ -1,6 +1,7 @@
 ---
 title: 擁有強大編輯器的互動動畫 | Rive
 date: 2022-02-14 17:08:53
+cover: https://assets.awwwards.com/awards/external/2022/02/620f800b8b5bf159047046.jpg
 categories: Rive
 tags:
 - App

@@ -1,0 +1,237 @@
+#! ---------------------------------------------------------------
+#! Aurora Theme for Hexo
+#! ---------------------------------------------------------------
+#! Designed & Coded By TriDiamond
+#! ---------------------------------------------------------------
+
+#! ---------------------------------------------------------------
+#! Site Configs
+#！ @docs https://aurora.tridiamond.tech/guide/configuration.html
+#! ---------------------------------------------------------------
+site:
+  subtitle: Shirley的隨手筆記
+  author: Shirley
+  nick: 隨手筆記
+  description: 記錄雜七雜八的秘密基地
+  link: '/'
+  language: tw
+  multi_language: false
+  logo: https://i.imgur.com/lM0jHtF.png
+  avatar: https://i.imgur.com/lM0jHtF.png
+  beian:
+    number: ''
+    link: ''
+  police_beian:
+    number: ''
+    link: ''
+
+#! ---------------------------------------------------------------
+#! Authors Configs
+#！ @docs https://aurora.tridiamond.tech/guide/authors.html
+#! ---------------------------------------------------------------
+authors:
+  ##! example
+  # TriDiamond:
+  #   name: TriDiamond
+  #   avatar: https://up.enterdesk.com/edpic_source/44/ff/3d/44ff3d6bd2819d524facfcc33205d4cd.jpg
+  #   link: https://github.com/TriDiamond
+  #   description: 'Think like an artist, code like an artisan.'
+  #   socials:
+  #     github: https://tridiamond.tech
+
+#! ---------------------------------------------------------------
+#! Menu Configs
+#！ @docs https://aurora.tridiamond.tech/guide/menu.html
+#! ---------------------------------------------------------------
+menu:
+  About: true
+  Tags: true
+  Archives: true
+
+#! ---------------------------------------------------------------
+#! Theme Config
+#! @docs https://aurora.tridiamond.tech/guide/theme.html
+#! ---------------------------------------------------------------
+theme:
+  dark_mode: true
+  profile_shape: circle # support `circle`, `diamond`, `rounded`
+  feature: true
+  gradient:
+    color_1: '#FF9933'
+    color_2: '#667eea'
+    color_3: '#764ba2'
+
+#! ---------------------------------------------------------------
+#! Social Configs
+#! @docs https://aurora.tridiamond.tech/guide/social.html
+#! ---------------------------------------------------------------
+socials:
+  github: 'https://github.com/cailirl980519'
+  customs:
+  ##! Example:
+  ##! --- Using SVG
+  # bilibili:
+  #   icon: http://localhost:4000/svg/bilibili.svg
+  #   link: https://live.bilibili.com/22619211
+
+  ##! --- Using IconFont
+  # baidu:
+  #   icon: iconfont icon-baidu
+  #   link: https://live.bilibili.com/22619211
+
+  ##! --- Using FontAwesome
+    book:
+      icon: fa fa-envelope
+      link: mailto://cailirl980519@gmail.com
+
+#! ---------------------------------------------------------------
+#! Site Meta Configs
+#! @docs https://aurora.tridiamond.tech/guide/theme.html
+#! ---------------------------------------------------------------
+site_meta:
+  cdn: en
+  favicon: https://i.imgur.com/lM0jHtF.png
+  description: '記錄雜七雜八的秘密基地'
+  keywords: 'Flutter, Dart, MSIX, webview_windows, Javascript, Web, VBA, Excel'
+  author: 'Shirley'
+
+#! ---------------------------------------------------------------
+#! Plugins
+#! @docs https://aurora.tridiamond.tech/guide/plugins.html
+#! ---------------------------------------------------------------
+
+# For local development only!
+gitalk:
+  enable: true
+  autoExpand: false
+  clientID: 'c0e2db3aa2fd110dd3f4'
+  clientSecret: '47cd718f5f5fe380a672eaf9316243b1a867a430'
+  repo: 'cailirl980519.github.io'
+  owner: 'cailirl980519'
+  admin: ['cailirl980519']
+  id: 'Gitalk'
+  language: zh-TW
+  distractionFreeMode: true
+  recentComment: true
+  proxy: ''
+
+# Valine comment plugin (recommended!)
+# see https://valine.js.org/quickstart.html
+valine:
+  enable: false
+  app_id:
+  app_key:
+  avatar: ''
+  placeholder: Leave your thoughts behind~
+  visitor: true
+  lang: en
+  avatarForce: false
+  meta: ['nick', 'mail']
+  requiredFields: []
+  admin: 'TriDiamond'
+  recentComment: false
+
+# Enable Busuanzi statistic plugin
+# see http://ibruce.info/2015/04/04/busuanzi/
+busuanzi:
+  enable: true
+
+recentComment:
+  enable: false
+
+copy_protection:
+  enable: false
+  author:
+    cn: 作者
+    en: Author
+  link:
+    cn: 本文来自于
+    en: Article is from
+  license:
+    cn: 博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议
+    en: This content is shared under the CC BY-NC-SA 4.0 protocol (Non-Commercial)
+
+#! ---------------------------------------------------------------
+#! Enable Aurora Bot Dia
+#! @docs https://aurora.tridiamond.tech/guide/site-meta.html#custom-meta
+#! ---------------------------------------------------------------
+aurora_bot:
+  enable: true
+  locale: en
+  bot_type: dia
+  tips:
+    console: 哈哈，你怎麼打開了控制台，是想要看看我的小秘密嗎？
+    copy: 轉載記得加上出處哦～～
+    visibility_change: 老朋友，歡迎回来～
+    welcome:
+      '24': 這麼晚還不睡覺，明天有放假嗎？
+      '5_7': 早上好！這個時間是沒睡還是早起呢？
+      '7_11': 上午好！工作順利嘛，不要久坐，多起來走動走動哦！
+      '11_13': 中午了，吃飽了嗎？
+      '13_17': 是時候等下班了嗎？
+      '17_19': 傍晚了！窗外夕陽的景色很美麗呢，最美不過夕陽紅～
+      '19_21': 晚上好，今天過得怎麼樣？
+      '21_23':
+        - 已經這麼晚了呀，早點休息吧，晚安～
+        - 深夜時要愛護眼睛呀！
+    mouseover:
+      # 懸浮在 Dia 上
+      - selector: '#Aurora-Dia'
+        text:
+          - 哇啊啊啊啊啊啊... <span>你想幹嘛</span>? O.O
+          - 請您善待我，我是<span>很昂貴</span>的機器人哦! O.O
+          - '<span>，我在呢!</span> 我有什麼可以幫到你呢? O.O'
+      # 懸浮在 Home 菜單
+      - selector: "[data-menu='Home']"
+        text:
+          - 點擊前往首頁，想回到上一頁可以使用瀏覽器的後退功能哦。
+          - 點它就可以回到首頁啦！
+          - 回首頁看看吧。
+      # 懸浮在 About 菜單
+      - selector: "[data-menu='About']"
+        text:
+          - 你想知道版主是誰嗎？
+          - 這裏有一些關於版主的秘密哦，要不要看看呢？
+          - 發現版主出沒地點！
+      # 懸浮在 Archives 菜單
+      - selector: "[data-menu='Archives']"
+        text:
+          - 這裏存儲了版主的所有作品哦！
+          - 想看看版主的圖書館嗎？
+      # 懸浮在 Tags 菜單
+      - selector: "[data-menu='Tags']"
+        text:
+          - 點擊就可以看文章的標籤啦！
+          - 使用標籤可以更好的分類你的文章哦～
+      # 懸浮在 language 菜單
+      - selector: "[data-dia='language']"
+        text: 版主的博客支持多種語言。
+      # 懸浮在黑白切換按鈕上
+      - selector: "[data-dia='light-switch']"
+        text: 您可以點擊這裏切換白天黑夜哦！
+      # 懸浮在作者簡介上
+      - selector: "[data-dia='author']"
+        text:
+          - 這是我版主的簡介。
+          - 點擊其中任何一個鏈接都可以傳送到我版主的其他世界。
+    click:
+      # 鼠標點擊搜索按鈕
+      - selector: "[data-dia='search']"
+        text:
+          - 沒有看到你想要的文章，那麼就輸入你想搜索的關鍵詞吧～
+          - 可以使用 ctrl/cmd + k 快捷鍵打開搜索哦～
+      # 鼠標點擊文章標題
+      - selector: "[data-dia='article-link']"
+        text:
+          - 希望你會喜歡這篇文章：<span>{text}</span>.
+          - 您的選擇真的不錯哦！好好享受這篇文章吧～
+          - 希望您能從 <span>{text}</span>這篇文章中學到點東西。
+
+#! ---------------------------------------------------------------
+#! Injections
+#! @docs https://aurora.tridiamond.tech/guide/site-meta.html#custom-meta
+#! ---------------------------------------------------------------
+injects:
+  scripts:
+  css:
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">

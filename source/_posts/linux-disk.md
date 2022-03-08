@@ -1,6 +1,7 @@
 ---
 title: Linux硬碟的大小事
 date: 2022-03-04 09:07:52
+cover: https://5.imimg.com/data5/BB/KJ/MY-8593783/laptop-hard-disk-500x500.jpg
 categories: Linux
 tags:
 - Linux

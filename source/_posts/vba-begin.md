@@ -1,6 +1,7 @@
 ---
 title: 新手上路 | Excel VBA
 date: 2021-12-17 10:23:31
+cover: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-00fvxHekpQjhx67FD3YHJe0BU9LM9dRDVxzbD8nxOSJpm-YziSjA0zdQpb3ZI7vfqkk&usqp=CAU
 categories: Excel VBA
 tags:
 - Excel

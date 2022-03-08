@@ -1,6 +1,7 @@
 ---
 title: Debian安裝LEMP(Linux, Nginx, MariaDB, PHP)
 date: 2022-03-04 10:51:55
+cover: https://justher.tw/filesys/image/Justher_images/Ahex-LEMP-1.png
 categories: Linux
 tags:
 - Linux
@@ -17,33 +18,33 @@ LEMP指的是在L - Linux OS下，安裝E - Nginx(Engine x)、M - MySQL/MariaDB�
 
 ## 前置作業
 安裝前先更新一下`apt-get`
-``` console
+``` sh
 $ apt-get update
 ```
 
 ### 安裝
 接著快速安裝一下Nginx, MariaDB和PHP
 > Debian10 默認 PHP7.3; Debian11 則默認 PHP7.4
-``` console
+``` sh
 $ apt-get install nginx
 $ apt-get install mariadb-server
 $ apt-get install php php-fpm php-cli php-mysql php-zip php-curl php-xml
 ```
 
 安裝完成後，就可以將Nginx及MariaDB啟用了
-``` console
+``` sh
 $ systemctl start nginx
 $ systemctl start mariadb
 ```
 
 若要在開機時就啟動Nginx及MariaDB，則輸入以下指令
-``` console
+``` sh
 $ systemctl enable nginx
 $ systemctl enable mariadb
 ```
 
 測試Nginx是否啟用
-``` console
+``` sh
 $ systemctl status nginx
 ● nginx.service - A high performance web server and a reverse proxy server
    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
@@ -61,7 +62,7 @@ $ systemctl status nginx
 ```
 
 測試MariaDB是否啟用
-``` console
+``` sh
 $ systemctl status mariadb
 ● mariadb.service - MariaDB 10.3.31 database server
    Loaded: loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset: enabled)
@@ -82,7 +83,7 @@ $ systemctl status mariadb
 ```
 
 若皆啟用後，也可以確認一下運行的port，一般情況下Nginx會運行在80 port; MariaDB則會運行在3306 port
-``` console
+``` sh
 $ ss -antpl
 LISTEN    0         128                0.0.0.0:80             0.0.0.0:*        users:(("nginx",pid=489,fd=6),("nginx",pid=488,fd=6),("nginx",pid=483,fd=6))   
 LISTEN    0         128                   [::]:80                [::]:*        users:(("nginx",pid=489,fd=7),("nginx",pid=488,fd=7),("nginx",pid=483,fd=7))
@@ -94,7 +95,7 @@ LISTEN    0          80            127.0.0.1:3306             0.0.0.0:*        u
 
 ## 設置Nginx
 打開`/etc/nginx/sites-available/default`
-``` console
+``` sh
 $ vi etc/nginx/site-available/default
 ```
 
@@ -131,21 +132,21 @@ server {
 ```
 
 接著確認Nginx是否有配置錯誤，若正確則會看到以下訊息
-``` console
+``` sh
 $ nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 最後重新啟動Nginx來應用更改的配置
-``` console
+``` sh
 $ systemctl restart nginx
 ```
 
 
 ## 設置MariaDB
 運行`mysql_secure_installation`來初始設置MariaDB
-``` console
+``` sh
 $ mysql_secure_installation
 Enter current password for root (enter for none): 
 Change the root password? [Y/n] Y
@@ -158,7 +159,7 @@ Reload privilege tables now? [Y/n] Y
 ```
 
 設置完成後即可以登入確認，並檢查MariaDB版本
-``` console
+``` sh
 $ mysql -u root -p
 Enter password: 
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
@@ -180,18 +181,18 @@ MariaDB [(none)]> SELECT VERSION();
 
 ## 設置PHP
 若要變更PHP配置，則要打開`/etc/php/7.3/fpm/php.ini`
-``` console
+``` sh
 $ vi etc/php/7.3/fpm/php.ini
 ```
 
 編輯完成後儲存並重啟PHP
-``` console
+``` sh
 $ systemctl restart php7.3-fpm
 ```
 
 
 在伺服器根目錄的地方加上`index.php`並編輯
-``` console
+``` sh
 $ vi data/info.php
 ```
 

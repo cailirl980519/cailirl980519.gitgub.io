@@ -1,6 +1,7 @@
 ---
 title: 顏色選擇器 Color Dialog | Excel VBA
 date: 2021-12-17 16:42:46
+cover: https://i.imgur.com/C11DgCM.gif
 categories: Excel VBA
 tags:
 - Excel
