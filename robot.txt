@@ -4,4 +4,4 @@ Allow: /archives/
 Allow: /categories/
 Allow: /tags/
 
-Sitemap: https://cailirl980519.github.io/new_sitemap.xml
+Sitemap: https://cailirl980519.github.io/sitemap.xml
