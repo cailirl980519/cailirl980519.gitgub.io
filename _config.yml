@@ -108,7 +108,7 @@ deploy:
   branch: main
 
 sitemap:
-  path: sitemap.xml
+  path: newSitemap.xml
   tags: true
   categories: true
   template: ./sitemap.xml
