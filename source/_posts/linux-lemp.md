@@ -7,6 +7,9 @@ tags:
 - Linux
 - Debian
 - LEMP
+- Nginx
+- MariaDB
+- PHP
 - GCP
 ---
 
@@ -96,7 +99,7 @@ LISTEN    0          80            127.0.0.1:3306             0.0.0.0:*        u
 ## 設置Nginx
 打開`/etc/nginx/sites-available/default`
 ``` sh
-$ vi etc/nginx/site-available/default
+$ vi etc/nginx/sites-available/default
 ```
 
 新增PHP的配置，並儲存離開
