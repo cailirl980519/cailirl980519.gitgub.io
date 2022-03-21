@@ -1,6 +1,6 @@
 ---
 title: Debian環境下Nginx使用SSL憑證
-date: 2022-03-04 10:51:55
+date: 2022-03-10 10:51:55
 cover: https://whc.ca/wp-content/uploads/blog_15418_large.jpg
 categories: Linux
 tags:

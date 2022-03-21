@@ -93,7 +93,7 @@ dev_dependencies:
     3. 跳出FilePath[1]留空Enter
     4. 輸入.pfx密碼
     5. 將輸出Subject記錄下來
-![pfx_info](/images/msix/image8.png)
+![Imgur](https://i.imgur.com/G7bFMwg.png)
 
 - 將`msix_config`新增至`pubspec.yaml`的最底部
 
@@ -124,7 +124,7 @@ msix_config:
 在終端機的Flutter專案的目錄下輸入：
 `flutter pub run msix:create`
 
-![msix:create](/images/msix/image0.png)
+![Imgur](https://i.imgur.com/f4zNLCL.png)
 
 Flutter專案中**\build\windows\runner\Release**資料夾下，會多產生一個msix檔。
 
@@ -136,22 +136,22 @@ Flutter專案中**\build\windows\runner\Release**資料夾下，會多產生一�
 
 此時，需要右鍵點擊.msix檔案再選取內容，將會看到**數位簽章**的標籤，點擊簽章再選取詳細資料。
 
-<img src="/images/msix/image1.png" alt="UntrustedApp_Step1" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/Mjavwpf.png)
 
 點擊**檢視憑證**
-<img src="/images/msix/image2.png" alt="UntrustedApp_Step2" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/olEKJPH.png)
 
 點擊**安裝憑證**
-<img src="/images/msix/image3.png" alt="UntrustedApp_Step3" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/fX0wKil.png)
 
 選擇**本機電腦**
-<img src="/images/msix/image4.png" alt="UntrustedApp_Step4" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/3sqJikv.png)
 
 選擇存放在**受信任的根憑證目錄**
-<img src="/images/msix/image5.png" alt="UntrustedApp_Step5" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/A05bKqb.png)
 
 點擊**完成**
-<img src="/images/msix/image6.png" alt="UntrustedApp_Step6" title="width='350'" width="350" />
+![Imgur](https://i.imgur.com/SCVHYhx.png)
 
 接著全部點確定，再開啟.msix檔案，就變為受信任的應用程式且可以安裝了～
 ![取自https://docs.microsoft.com/](https://docs.microsoft.com/zh-tw/windows/msix/images/msix-good-cert.png)
